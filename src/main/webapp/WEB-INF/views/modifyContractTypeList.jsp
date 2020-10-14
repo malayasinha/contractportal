@@ -22,7 +22,7 @@
 <title>Contract Management</title>
 </head>
 <body>
-	<form:form name="ContractType" commandName="contractTypeEntity">
+	<form:form name="ContractType" modelAttribute="contractTypeEntity">
 		<div class="middlecontent">
 
 			<div class="middlebox">

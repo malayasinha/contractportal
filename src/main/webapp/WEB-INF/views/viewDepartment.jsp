@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<form:form name="Department" commandName="department">
+	<form:form name="Department" modelAttribute="department">
 		<div class="middlecontent">
 			<div class="leftbox">
 				<div class="homeleftboxbg">

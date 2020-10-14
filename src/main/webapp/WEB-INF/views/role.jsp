@@ -19,7 +19,7 @@
     <body>
        
             <div class="middlecontent" > 
-<form:form name="role" commandName="roleEntity" >
+<form:form name="role" modelAttribute="roleEntity" >
                 <div style="margin-top: 35px;" class="leftbox">
                     <div class="homeleftboxbg" style="width:100px; height: 350px; background-color: #DBDFE8">
                         <div class="box_woodpanel"></div>

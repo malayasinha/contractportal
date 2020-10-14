@@ -40,7 +40,7 @@
 	}
 %>
 <body>
-	<form:form name="role" commandName="role">
+	<form:form name="role" modelAttribute="role">
 		<div class="middlecontent">
 
 			<c:choose>

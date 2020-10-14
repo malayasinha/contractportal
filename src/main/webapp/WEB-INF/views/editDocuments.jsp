@@ -22,7 +22,7 @@
 <title>Document Management</title>
 </head>
 <body>
-	<form:form name="Documents" commandName="documentsEntity">
+	<form:form name="Documents" modelAttribute="documentsEntity">
 		<div class="middlecontent">
 			<div class="leftbox">
 				<div class="homeleftboxbg">

@@ -22,39 +22,9 @@
  <title>Profile</title>
      </head>     
    	
-<%
-
-List<Role> roles=new ArrayList<Role>();
-if(request.getAttribute("roles")!=null)
-{
-	roles=(List<Role>)request.getAttribute("roles");
-	System.out.println("roles size="+roles.size());
-}
-
- List<UsersRole> roleList=new ArrayList<UsersRole>();
-String roleName="";
-int roleid=0;
-int user_role_id=0;
-if(request.getAttribute("roleList")!=null)
-{
-	roleList=(List<UsersRole>)request.getAttribute("roleList");
-	System.out.println(roleList.size());
-	if(roleList!=null){
-	UsersRole roleuser=new UsersRole();
-	roleuser=roleList.get(0);
-	Role role=(Role)roleuser.getRole();
-	System.out.println(role.getRole()+"userroleid====="+roleuser.getId());
-	roleName=role.getRole();
-	roleid=role.getId();
-	user_role_id=roleuser.getId();
-		
-	}
-	
-}		
- %>
  
     <body>
-	  <form:form name="Profile" commandName="profileEntity">
+	  <form:form name="Profile" modelAttribute="profileEntity">
         <div class="middlecontent"> 
                <div class="leftbox">
                     <div class="homeleftboxbg" >

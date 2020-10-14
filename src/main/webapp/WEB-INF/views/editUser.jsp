@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<form:form name="User" commandName="usersEntity">
+	<form:form name="User" modelAttribute="usersEntity">
 		<div class="middlecontent">
 			<div class="leftbox">
 				<div class="homeleftboxbg">
@@ -174,15 +174,15 @@
 								<td><select id="roleId" name="roleId" style="width: 119px;"
 									cssClass="${readonlyTxt}" ${disabled} >
 										<option value="">---Select---</option>
-										<c:if test="${!empty roles}">
-											<c:forEach items="${roles}" var="roleId">
-												<option value="${role.id}">${role.role}</option>
+										<c:if test="${!empty roleList}">
+											<c:forEach items="${roleList}" var="roleId">
+												<option value="${roleId.id}">${roleId.role}</option>
 
 											</c:forEach>
 										</c:if>
 								</select>
                                    <script type="text/javascript">
-		        						document.User.role.value=${usersEntity.roleId}
+		        						document.User.roleId.value=${usersEntity.roleObj.id}
 		        					</script>
 								
 								</td>

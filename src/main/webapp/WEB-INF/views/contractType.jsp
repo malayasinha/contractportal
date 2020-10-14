@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<form:form name="ContractType" commandName="fileUploadDocForm"
+	<form:form name="ContractType" modelAttribute="fileUploadDocForm"
 		enctype="multipart/form-data">
 		<div class="middlecontent">
 						<%--  

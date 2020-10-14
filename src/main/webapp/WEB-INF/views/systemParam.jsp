@@ -27,7 +27,7 @@
                 </div>
             
                 <div>
-                    <form:form  name="syst_Param" action="add_ModifySysParam" method="POST" commandName="systemParameter">
+                    <form:form  name="syst_Param" action="add_ModifySysParam" method="POST" modelAttribute="systemParameter">
 
                         <br>
                         <fieldset style="width: 640px;">

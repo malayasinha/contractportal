@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,16 +21,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sspl.entity.EmployeeEntity;
 import com.sspl.entity.Users;
 import com.sspl.master.service.LoginService;
-import com.sspl.master.service.ProfileService;
-import com.sspl.master.service.ProfileServiceImpl;
 import com.sspl.utility.Utility;
 
 /**
@@ -47,9 +42,6 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
-	@Autowired
-	private ProfileService profile;
-	
 	@RequestMapping(value = "/welcome1", method = RequestMethod.POST)
 	public String executeSecurity(ModelMap model, Principal principal) {
 
@@ -368,14 +360,5 @@ public class LoginController {
 		return "loginNew";
 
 	}
-	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	@ResponseBody
-	public Users testurl() {
-		System.out.println("test url called");
-		
-		profile.viewProfile();
-		
-		return null;
-	}
+
 }

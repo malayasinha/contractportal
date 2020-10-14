@@ -17,7 +17,7 @@
     </head>
   
       <body>
-           <form:form name="ContractReview" commandName="contractReviewEntity">
+           <form:form name="ContractReview" modelAttribute="contractReviewEntity">
             <div class="middlecontent" > 
                  <div  class="leftbox">
                     <div class="homeleftboxbg" >

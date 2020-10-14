@@ -27,7 +27,7 @@
                    <br>
                   
                     <div>
-                        <form:form  name="password_policy" commandName="passwordPolicyEntity">
+                        <form:form  name="password_policy" modelAttribute="passwordPolicyEntity">
                             <fieldset style="width: 735px;"> 
                                 <legend><b>Password Policy Rules</b></legend>
                       

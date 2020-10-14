@@ -29,7 +29,7 @@ if (request.getAttribute("approvalAuth") != null) {
 <title>View Contracts</title>
 </head>
 <body>
-	<form:form name="ContractType" commandName="documentApprovarForm">
+	<form:form name="ContractType" modelAttribute="documentApprovarForm">
 		<div class="middlecontent">
 			<div class="middlebox">
 				<font style="font-size: 20px">View Contracts</font>

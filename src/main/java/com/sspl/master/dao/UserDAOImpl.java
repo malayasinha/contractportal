@@ -17,6 +17,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.sspl.entity.EmployeeEntity;
@@ -68,13 +69,12 @@ public class UserDAOImpl implements UserDAO
 		
 		editUserList=this.sessionFactory.getCurrentSession().createQuery("from UsersEntity as ue where ue.id="+id).list();
 		userList=this.sessionFactory.getCurrentSession().createQuery("from UsersEntity").list();
-		roleList=this.sessionFactory.getCurrentSession().createQuery("from UsersRole ur where ur.usersEntity="+id).list();
-		roles=this.sessionFactory.getCurrentSession().createQuery("from Role").list();
+		//roleList=this.sessionFactory.getCurrentSession().createQuery("from UsersRole ur where ur.usersEntity="+id).list();
+		roleList=this.sessionFactory.getCurrentSession().createQuery("from Role").list();
 
 		mapData.put("roleList", roleList);		
 		mapData.put("editUserList", editUserList);
 		mapData.put("userList", userList);
-		mapData.put("roles",roles);
 		
 		return mapData;
 		
@@ -86,14 +86,12 @@ public class UserDAOImpl implements UserDAO
 		loggerInfo.info("**[ saveUser Save User ]**");
 		Map<String, Object> mapData=new HashMap<String, Object>();
 		List<UsersEntity> uniquedata=new  ArrayList<UsersEntity>();
-		UsersRole usersRole= new  UsersRole();
 		UsersEntity entity=new UsersEntity();
-		Role role=new Role();
 		entity=(UsersEntity)map.get("usersEntity");
-		role=(Role)map.get("role");
-		System.out.println(entity.getfName()+"===="+role.getId());
-        entity.setPassword("hello");
-        
+        String encoded = new BCryptPasswordEncoder().encode(entity.getUsername());
+        entity.setPassword(encoded);
+        System.out.println("User Name ["+encoded+"]");
+
 		uniquedata=(List<UsersEntity>)this.sessionFactory.getCurrentSession().createCriteria(UsersEntity.class).add(Restrictions.eq("username", entity.getUsername())).list(); 
 		System.out.println("size=="+uniquedata.size());
 		if(uniquedata.size()>0)
@@ -105,16 +103,11 @@ public class UserDAOImpl implements UserDAO
 		
 		Session session = null;
     	Transaction tx = null;
-    	
-    	usersRole.setUsersEntity(entity);
-    	usersRole.setRole(role);
-    	usersRole.setEnabled(Integer.parseInt(entity.getEnabled()));
  
     	try{
     		session = this.sessionFactory.openSession();
     		tx = session.beginTransaction();
     		session.save(entity);
-    		session.save(usersRole);
     		tx.commit();
     		loggerInfo.info("**[ User Saved ]**");
     		
@@ -152,7 +145,7 @@ public class UserDAOImpl implements UserDAO
 		usersEntity=(UsersEntity)map.get("usersEntity");
 		role=(Role)map.get("role");
 		System.out.println(usersEntity.getfName()+"===="+role.getId());
-		usersEntity.setPassword("hello");
+		//usersEntity.setPassword("hello");
 		
 		Session session = null;
     	Transaction tx = null;
@@ -177,16 +170,20 @@ public class UserDAOImpl implements UserDAO
     	        	editUsersEntity.setMobileNo(usersEntity.getMobileNo());
     	        	editUsersEntity.setModifiedBy(usersEntity.getModifiedBy());
     	        	editUsersEntity.setModifiedDate(usersEntity.getModifiedDate());
-    	        	editUsersEntity.setPassword(editUsersEntity.getPassword());
+    	        	
+    	        	editUsersEntity.setRoleObj(role);
+    	  //      	editUsersEntity.setPassword(editUsersEntity.getPassword());
     	        	session.saveOrUpdate(editUsersEntity);
         			loggerTech.info("**[ modifyUser  Data found ]**");
     	        }
     		}else{
     			loggerTech.info("**[ modifyUser  No Data found ]**");
     		} 
-    		String deleteQuery = "delete UsersRole ur where ur.usersEntity= :userroleid";
-    		int value=session.createQuery(deleteQuery).setInteger("userroleid", usersEntity.getId()).executeUpdate();
-    		
+			/*
+			 * String deleteQuery = "delete UsersRole ur where ur.usersEntity= :userroleid";
+			 * int value=session.createQuery(deleteQuery).setInteger("userroleid",
+			 * usersEntity.getId()).executeUpdate();
+			 */
     		
     		tx.commit();
  

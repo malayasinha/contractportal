@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sspl.entity.Department;
-import com.sspl.entity.EmployeeEntity;
 import com.sspl.entity.Role;
 import com.sspl.entity.Users;
 import com.sspl.entity.UsersEntity;
@@ -102,7 +100,6 @@ public class UserController
 		usersObj=(Users)session.getAttribute("usersObj");
 		}
 		System.out.println(request.getParameter("roleId"));
-		
 		Map<String, Object> map=new HashMap<String, Object>();
 		int roleid=Integer.parseInt(request.getParameter("roleId"));
 	    Role role=new Role();

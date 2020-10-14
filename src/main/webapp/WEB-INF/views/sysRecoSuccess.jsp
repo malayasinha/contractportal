@@ -15,7 +15,7 @@
         <title>***Bank Reco***</title>
        </head>
     <body>
-              <form:form name="bank" commandName="bank"> 
+              <form:form name="bank" modelAttribute="bank"> 
                 <div class="middlecontent" > 
 
                     <div style="margin-top: 35px;" class="leftbox">

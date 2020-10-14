@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<form:form name="Signatory" commandName="signatoryEntity">
+	<form:form name="Signatory" modelAttribute="signatoryEntity">
 		<div class="middlecontent">
 			<div class="leftbox">
 				<div class="homeleftboxbg">

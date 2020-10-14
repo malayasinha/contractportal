@@ -17,7 +17,7 @@
     </head>
   
       <body>
-           <form:form name="User" commandName="usersEntity">
+           <form:form name="User" modelAttribute="usersEntity">
             <div class="middlecontent" > 
                  <div  class="leftbox">
                     <div class="homeleftboxbg" >

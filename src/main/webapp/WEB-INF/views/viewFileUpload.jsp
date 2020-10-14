@@ -18,7 +18,7 @@
      --%>
     
     <body>
-                      <form:form name="fileUploadEntity" commandName="fileUploadEntity"> 
+                      <form:form name="fileUploadEntity" modelAttribute="fileUploadEntity"> 
 
          <div class="middlecontent" > 
       

@@ -1,4 +1,3 @@
-<%@page import="com.sspl.entity.BankAccountEntity"%>
 <%@page import="com.sspl.entity.Role"%>
 <%@page import="com.sspl.entity.ProfileSignatoriesEntity"%>
 <%@page import="java.util.Iterator"%>
@@ -18,7 +17,7 @@
 </head>
 
 <body>
-	<form:form name="ProfileWorkflow" commandName="profileSignatoriesEntity">
+	<form:form name="ProfileWorkflow" modelAttribute="profileSignatoriesEntity">
 		<div class="middlecontent">
 			<div class="leftbox">
 				<div class="homeleftboxbg">

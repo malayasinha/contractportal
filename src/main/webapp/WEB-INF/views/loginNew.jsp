@@ -4,7 +4,7 @@
         <script src="${pageContext.request.contextPath}/js/common.js"></script>
 <html>
 <head>
-    <title>***Bank Reco***</title>
+    <title>***Tatasky Work Flow***</title>
 </head>
 <body>
  
@@ -35,7 +35,7 @@
 	
 </script>
 
-<form:form name="users" commandName="users">
+<form:form name="users" modelAttribute="users">
  <table>
 <%--  	<form:errors path="userName" cssclass="error"></form:errors>
  	<form:errors path="password" cssclass="error"></form:errors>

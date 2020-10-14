@@ -17,7 +17,7 @@
     </head>
   
       <body>
-           <form:form name="Profile" commandName="profileEntity">
+           <form:form name="Profile" modelAttribute="profileEntity">
             <div class="middlecontent" > 
                  <div  class="leftbox">
                     <div class="homeleftboxbg" >

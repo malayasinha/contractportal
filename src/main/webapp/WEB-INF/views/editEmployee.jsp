@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<form:form name="Employee" commandName="employeeEntity">
+	<form:form name="Employee" modelAttribute="employeeEntity">
 		<div class="middlecontent">
 			<div class="leftbox">
 				<div class="homeleftboxbg">
