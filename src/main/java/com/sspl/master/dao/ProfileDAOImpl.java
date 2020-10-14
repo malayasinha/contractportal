@@ -30,6 +30,7 @@ public class ProfileDAOImpl implements ProfileDAO {
 		Map<String, Object> mapData=new HashMap<String, Object>();
 		List<ProfileEntity> profileList=new ArrayList<ProfileEntity>();
 		profileList=this.sessionFactory.getCurrentSession().createQuery("from ProfileEntity").list();
+		System.out.println(profileList);
 		mapData.put("profileList", profileList);
 		return mapData;
 	}

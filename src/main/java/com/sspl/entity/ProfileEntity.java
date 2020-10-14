@@ -9,117 +9,122 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="profiles_main")
-public class ProfileEntity implements Serializable{
+@Table(name = "profiles_main")
+public class ProfileEntity implements Serializable {
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			
-			@Id
-		    @Column(name="profile_id")
-		    @GeneratedValue
-		    private Integer id;
-				
-			@Column(name="profile_name")
-			private String profileName;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-			@Column(name="profile_description")
-			private String profileDescription;
+	@Id
+	@Column(name = "profile_id")
+	@GeneratedValue
+	private Integer id;
 
-			@Column(name="input_folder")
-			private String inputFolder;
+	@Column(name = "profile_name")
+	private String profileName;
 
-			@Column(name="output_folder")
-			private String outputFolder;
+	@Column(name = "profile_description")
+	private String profileDescription;
 
-		    @Column(name="status")
-		    private String enabled; 
-		    
-		    @Column(name="last_chg_by")
-		    private String lastChgBy;
-		    
-		    @Column(name="last_chg_date")
-		    private Date lastChgDate;
-		    
-		    @Column(name="last_chg_time")
-		    private String lastChgTime;
+	@Column(name = "input_folder")
+	private String inputFolder;
 
-			public Integer getId() {
-				return id;
-			}
+	@Column(name = "output_folder")
+	private String outputFolder;
 
-			public void setId(Integer id) {
-				this.id = id;
-			}
+	@Column(name = "status")
+	private String enabled;
 
-			public String getProfileName() {
-				return profileName;
-			}
+	@Column(name = "last_chg_by")
+	private String lastChgBy;
 
-			public void setProfileName(String profileName) {
-				this.profileName = profileName;
-			}
+	@Column(name = "last_chg_date")
+	private Date lastChgDate;
 
-			public String getProfileDescription() {
-				return profileDescription;
-			}
+	@Column(name = "last_chg_time")
+	private String lastChgTime;
 
-			public void setProfileDescription(String profileDescription) {
-				this.profileDescription = profileDescription;
-			}
+	public Integer getId() {
+		return id;
+	}
 
-			public String getInputFolder() {
-				return inputFolder;
-			}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-			public void setInputFolder(String inputFolder) {
-				this.inputFolder = inputFolder;
-			}
+	public String getProfileName() {
+		return profileName;
+	}
 
-			public String getOutputFolder() {
-				return outputFolder;
-			}
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
+	}
 
-			public void setOutputFolder(String outputFolder) {
-				this.outputFolder = outputFolder;
-			}
+	public String getProfileDescription() {
+		return profileDescription;
+	}
 
+	public void setProfileDescription(String profileDescription) {
+		this.profileDescription = profileDescription;
+	}
 
-			public String getLastChgBy() {
-				return lastChgBy;
-			}
+	public String getInputFolder() {
+		return inputFolder;
+	}
 
-			public void setLastChgBy(String lastChgBy) {
-				this.lastChgBy = lastChgBy;
-			}
+	public void setInputFolder(String inputFolder) {
+		this.inputFolder = inputFolder;
+	}
 
-			public Date getLastChgDate() {
-				return lastChgDate;
-			}
+	public String getOutputFolder() {
+		return outputFolder;
+	}
 
-			public void setLastChgDate(Date lastChgDate) {
-				this.lastChgDate = lastChgDate;
-			}
+	public void setOutputFolder(String outputFolder) {
+		this.outputFolder = outputFolder;
+	}
 
-			public String getLastChgTime() {
-				return lastChgTime;
-			}
+	public String getLastChgBy() {
+		return lastChgBy;
+	}
 
-			public void setLastChgTime(String lastChgTime) {
-				this.lastChgTime = lastChgTime;
-			}
+	public void setLastChgBy(String lastChgBy) {
+		this.lastChgBy = lastChgBy;
+	}
 
-			public String getEnabled() {
-				return enabled;
-			}
+	public Date getLastChgDate() {
+		return lastChgDate;
+	}
 
-			public void setEnabled(String enabled) {
-				this.enabled = enabled;
-			}
+	public void setLastChgDate(Date lastChgDate) {
+		this.lastChgDate = lastChgDate;
+	}
 
+	public String getLastChgTime() {
+		return lastChgTime;
+	}
 
+	public void setLastChgTime(String lastChgTime) {
+		this.lastChgTime = lastChgTime;
+	}
+
+	public String getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+
+	@Override
+	public String toString() {
+		return "ProfileEntity [id=" + id + ", profileName=" + profileName + ", profileDescription=" + profileDescription
+				+ ", inputFolder=" + inputFolder + ", outputFolder=" + outputFolder + ", enabled=" + enabled
+				+ ", lastChgBy=" + lastChgBy + ", lastChgDate=" + lastChgDate + ", lastChgTime=" + lastChgTime + "]";
+	}
+
+	
 }

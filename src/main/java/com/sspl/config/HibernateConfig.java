@@ -2,34 +2,31 @@ package com.sspl.config;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @PropertySource("classpath:database.properties")
 @EnableTransactionManagement
-@ComponentScan(basePackages = { "com.sspl" })
+@ComponentScans(value = { @ComponentScan("com.sspl.master.service"),
+	    @ComponentScan("com.sspl.master.dao") })
+//@ComponentScan(basePackages = { "com.sspl.master.controller" })
 public class HibernateConfig {
 	@Autowired
 	private Environment environment;
 
-	@Bean
+	@Bean(name = "dataSource")
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));

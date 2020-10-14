@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -22,21 +23,28 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "com.sspl.master.controller", "com.sspl.master.service", "com.sspl.master.dao" })
+@ComponentScan(basePackages = { "com.sspl.master.controller"})
 public class WebMvcConfig implements WebMvcConfigurer {
 
-	@Bean
+	/*@Bean
 	public InternalResourceViewResolver resolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setViewClass(JstlView.class);
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
 		return resolver;
+	}*/
+	
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+	registry.jsp().prefix("/WEB-INF/views/").suffix(".jsp");
 	}
+
+	  
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("login");
+		registry.addViewController("/login").setViewName("customLogin");
 	}
 
 	@Bean

@@ -7,7 +7,7 @@ public class FrontControllerConfig extends AbstractAnnotationConfigDispatcherSer
 	@Override
 	   protected Class<?>[] getRootConfigClasses() {
 	      return new Class[] { HibernateConfig.class ,WebSecurityConfig.class };
-		
+		//
 	   }
 	 
 	   @Override
