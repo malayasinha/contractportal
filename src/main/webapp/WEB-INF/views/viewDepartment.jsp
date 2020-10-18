@@ -16,21 +16,7 @@
 <body>
 	<form:form name="Department" modelAttribute="department">
 		<div class="middlecontent">
-			<div class="leftbox">
-				<div class="homeleftboxbg">
-					<div class="box1_con_blue">
-						<br /> <input class="press" type="button"
-							value="<spring:message code="label.new"/>"
-							onclick="submitForm('Department', '/tatasky/viewDepartment');" /> <input
-							class="press" type="button" id="update"
-							onclick="submitForm('Department', '/tatasky/editDepartmentActive/${department.id}');"
-							value="<spring:message code="label.update"/>" /> <input
-							class="press" type="button" id="update"
-							onclick="submitForm('Department', '/tatasky/addDepartment/${department.id}');"
-							value="<spring:message code="label.save"/>" />
-					</div>
-				</div>
-			</div>
+			
 			<div class="middlebox">
 				<font style="font-size: 20px">Enter Department Details</font>
 				<div class="messagebar">
@@ -89,7 +75,19 @@
 					</div>
 
 				</fieldset>
-
+				<div>
+					<div class="box1_con_blue">
+						<br /> <input class="press" type="button"
+							value="<spring:message code="label.new"/>"
+							onclick="submitForm('Department', '/tatasky/viewDepartment');" /> <input
+							class="press" type="button" id="update"
+							onclick="submitForm('Department', '/tatasky/editDepartmentActive/${department.id}');"
+							value="<spring:message code="label.update"/>" /> <input
+							class="press" type="button" id="update"
+							onclick="submitForm('Department', '/tatasky/addDepartment/${department.id}');"
+							value="<spring:message code="label.save"/>" />
+					</div>
+				</div>
 			</div>
 		</div>
 	</form:form>

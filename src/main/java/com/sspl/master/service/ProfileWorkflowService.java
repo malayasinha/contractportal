@@ -7,5 +7,7 @@ public interface ProfileWorkflowService {
 	Map<String, Object> viewProfileWorkflow();
 
 	Map<String, Object> saveProfileWorkflow(Map<String, Object> map);
+	
+	Map<String, Object> editProfileWorkflow(Integer Id);
 
 }

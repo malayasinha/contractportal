@@ -40,7 +40,7 @@
 
 								<tr>
 									<th>Contract Name</th>
-									<th>Uploaded Document</th>
+									<!-- <th>Uploaded Document</th> -->
 									<th>Document Type</th>
 									<th>Profile</th>
 									<th>View</th>
@@ -52,11 +52,11 @@
 											<td>
 											<a href="/tatasky/editFollowupDocumentList/${contractTypeEntity.id}">
 											${contractTypeEntity.contractTypeName}</ahref></td>
-											<td>${contractTypeEntity.contractDocument}</td>
+											<%-- <td>${contractTypeEntity.contractDocument}</td> --%>
 											<td>${contractTypeEntity.documentsEntity.documentName}</td>
 											<td>${contractTypeEntity.profileSignatoriesEntity.profileSigName}</td>
-											<td>${contractTypeEntity.contractDocument}</td>
-											<%-- <td><a href="/tatasky/downLoadDocument/${contractTypeEntity.id}"> ${contractTypeEntity.contractDocument} </a></td> --%>
+											<%-- <td>${contractTypeEntity.contractDocument}</td> --%>
+											<td><a href="/tatasky/download/cur/${contractTypeEntity.id}"> ${contractTypeEntity.contractDocument} </a></td>
 										</tr>
 									</c:forEach>
 								</c:if>

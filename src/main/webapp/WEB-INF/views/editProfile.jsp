@@ -26,15 +26,7 @@
     <body>
 	  <form:form name="Profile" modelAttribute="profileEntity">
         <div class="middlecontent"> 
-               <div class="leftbox">
-                    <div class="homeleftboxbg" >
-                           <div class="box1_con_blue"> <br/>
-                       <input class="press" type="button" value="<spring:message code="label.new"/>" onclick="submitForm('Profile', '/tatasky/viewProfile');"/>
-                        <input class="press" type="button"  id="update"onclick="submitForm('Profile', '/tatasky/editProfileActive/${profileEntity.id}');"  value="<spring:message code="label.update"/>"/>
-                        <input class="press" type="button"  id="update"onclick="submitForm('Profile', '/tatasky/modifyProfile/${profileEntity.id}');"  value="<spring:message code="label.save"/>"/>
-                    </div>
-                    </div>
-                </div>
+               
               <div class="middlebox"> 
                  
                   <font style="font-size: 20px"> Enter Profile Details</font>
@@ -100,6 +92,13 @@
                          </table>
                          </div>
                      </fieldset>
+                     <div>
+                     	<div class="box1_con_blue"> <br/>
+                       <input class="press" type="button" value="<spring:message code="label.new"/>" onclick="submitForm('Profile', '/tatasky/viewProfile');"/>
+                        <input class="press" type="button"  id="update"onclick="submitForm('Profile', '/tatasky/editProfileActive/${profileEntity.id}');"  value="<spring:message code="label.update"/>"/>
+                        <input class="press" type="button"  id="update"onclick="submitForm('Profile', '/tatasky/modifyProfile/${profileEntity.id}');"  value="<spring:message code="label.save"/>"/>
+                    </div>
+                     </div>
                  </div>
           </div>
         </form:form>

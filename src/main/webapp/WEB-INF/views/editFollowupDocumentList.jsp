@@ -47,7 +47,7 @@ if (request.getAttribute("approvalAuth") != null) {
 
 								<tr>
 									<th>Contract Name</th>
-									<th>Uploaded Document</th>
+									<!-- <th>Uploaded Document</th> -->
 									<th>Document Type</th>
 									<th>Profile</th>
 									<th>View</th>
@@ -60,7 +60,7 @@ if (request.getAttribute("approvalAuth") != null) {
 											<td><a href="/tatasky/editFollowupDocumentList/"
 												${documentApprovarForm.id}>
 													${documentApprovarForm.contractTypeName}</ahref></td>
-											<td>${documentApprovarForm.contractDocument}</td>
+											<%-- <td>${documentApprovarForm.contractDocument}</td> --%>
 											<td>${documentApprovarForm.documentsEntity.documentName}</td>
 											<td>${documentApprovarForm.profileSignatoriesEntity.profileSigName}</td>
 											<td>${documentApprovarForm.contractDocument}</td>

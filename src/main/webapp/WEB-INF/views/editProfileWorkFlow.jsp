@@ -20,15 +20,11 @@
 	<form:form name="ProfileWorkflow" modelAttribute="profileSignatoriesEntity">
 		<div class="middlecontent">
 			
-
-
 			<div class="middlebox">
-
 				<font style="font-size: 20px">Configure Profile</font>
 				<div class="messagebar">
 					<span id="messagebar" style="color: red"></span>
 				</div>
-
 
 				<br>
 				<div>
@@ -48,11 +44,11 @@
 
 
 
-								<c:if test="${!empty profileSignatoriesList}">
-									<c:forEach items="${profileSignatoriesList}" var="profileSignatoriesEntity">
+								<c:if test="${!empty profileWorkflowList}">
+									<c:forEach items="${profileWorkflowList}" var="profileSignatoriesEntity">
 										<tr>
 
-											<td><a href="/tatasky/editProfileWorkflow/${profileSignatoriesEntity.id}">
+											<td><a href="/tatasky/editUser/${profileSignatoriesEntity.id}">
 													${profileSignatoriesEntity.profileEntity.profileName} </a></td>
 											<td>${profileSignatoriesEntity.documentsEntity.documentName}</td>
 											<td>${profileSignatoriesEntity.signatoryEntity1.signatoriesName}</td>

@@ -15,12 +15,7 @@ import javax.persistence.Table;
 @Table(name="users")
 public class UsersEntity  implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
-
 	
 	@Id
     @Column(name="user_id")
@@ -199,6 +194,15 @@ public class UsersEntity  implements Serializable{
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	@Override
+	public String toString() {
+		return "UsersEntity [id=" + id + ", fName=" + fName + ", mName=" + mName + ", lName=" + lName + ", dName="
+				+ dName + ", employeeId=" + employeeId + ", mobileNo=" + mobileNo + ", emailId=" + emailId
+				+ ", username=" + username + ", password=" + password + ", enabled=" + enabled + ", createdBy="
+				+ createdBy + ", creationDate=" + creationDate + ", modifiedBy=" + modifiedBy + ", modifiedDate="
+				+ modifiedDate + ", roleObj=" + roleObj + "]";
 	}
 
 		

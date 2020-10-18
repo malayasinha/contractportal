@@ -1,6 +1,8 @@
 package com.sspl.master.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sspl.entity.Department;
 import com.sspl.entity.DocumentsEntity;
 import com.sspl.entity.ProfileEntity;
 import com.sspl.entity.ProfileSignatoriesEntity;
@@ -55,6 +59,33 @@ public class ProfileWorkflowController {
 			map.addAttribute("contentJsp","profileWorkFlow");
 			return "index";
 		}
+		@RequestMapping(value = "/editProfileWorkflow/{id}" , method = RequestMethod.GET)
+		public String editProfileWorkflow(ModelMap map,@PathVariable("id") Integer id) 
+		{
+
+			loggerInfo.info("**[ editProfileWorkflow Edit ProfileWorkflow]**");
+			loggerTech.info("**[ editProfileWorkflow Edit ProfileWorkflow for edit ProfileWorkflow"+id+"]**");
+
+			Map<String, Object> viewProfileWorkflow = (Map<String, Object>) profileWorkflowService.editProfileWorkflow(id);
+			List<ProfileSignatoriesEntity> editProfileWorkflowList=new ArrayList<ProfileSignatoriesEntity>();
+
+
+			if(viewProfileWorkflow.get("editProfileWorkflowList")!=null){
+				editProfileWorkflowList=(List<ProfileSignatoriesEntity>) viewProfileWorkflow.get("editProfileWorkflowList");
+			}
+			map.addAttribute("readonly","true");
+			map.addAttribute("readonlyTxt","readonlyTxt");
+			map.addAttribute("disabled", "disabled");
+
+			map.addAttribute("ProfileWorkflow", editProfileWorkflowList.get(0));
+			map.addAttribute("editProfileWorkflowList",viewProfileWorkflow.get("editProfileWorkflowList") );
+			map.addAttribute("ProfileWorkflowList",viewProfileWorkflow.get("ProfileWorkflowList") );
+			
+			map.addAttribute("contentJsp","editProfileWorkFlow");
+			return "index";
+
+		}
+
 		@RequestMapping(value = "/addProfileWorkflow", method = RequestMethod.POST)
 		public String saveProfileWorkflow(@ModelAttribute(value="profileSignatoriesEntity") ProfileSignatoriesEntity profileSignatoriesEntity,HttpServletRequest request, BindingResult result) 
 		{

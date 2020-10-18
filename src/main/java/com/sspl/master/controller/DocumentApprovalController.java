@@ -14,6 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -41,158 +45,183 @@ public class DocumentApprovalController {
 	private Logger loggerTech = Logger.getLogger("bankreco_tech");
 
 	@Autowired
-	private DocumentApprovalService  documentApprovalService;
+	private DocumentApprovalService documentApprovalService;
 
 	public void setDocumentApprovalService(DocumentApprovalService documentApprovalService) {
 		this.documentApprovalService = documentApprovalService;
 	}
-	
-	@RequestMapping(value = "/followupDocumentList", method = { RequestMethod.GET,RequestMethod.POST })
-	public String followupDocumentList(ModelMap map) 
-	{
+
+	@RequestMapping(value = "/followupDocumentList", method = { RequestMethod.GET, RequestMethod.POST })
+	public String followupDocumentList(ModelMap map) {
+		SecurityContext sc = SecurityContextHolder.getContext();
+		Authentication auth = sc.getAuthentication();
+		String username = "";
+		Map<String, Object> viewPendingDocument = null;
+		username = auth.getName();
+		if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+			viewPendingDocument = (Map<String, Object>) documentApprovalService.followupDocumentList();
+			System.out.println("isAdmin");
+		} else {
+			viewPendingDocument = (Map<String, Object>) documentApprovalService.followupDocumentList(username);
+			System.out.println("isNotAdmin");
+		}
+
+		System.out.println("username" + username);
+
 		loggerInfo.info("** &&[ followupDocumentList ] &&**");
 		map.addAttribute("contractTypeEntity", new ContractTypeEntity());
-		Map<String, Object> viewPendingDocument = (Map<String, Object>) documentApprovalService.followupDocumentList();
+
 		map.addAttribute("contractTypeList", viewPendingDocument.get("contractTypeList"));
 		map.addAttribute("documentList", viewPendingDocument.get("documentList"));
 		map.addAttribute("profileSignatoriesEntityList", viewPendingDocument.get("profileSignatoriesEntityList"));
 
-		map.addAttribute("contentJsp","followupDocumentList");
+		map.addAttribute("contentJsp", "followupDocumentList");
 		return "index";
 	}
-	@RequestMapping(value = "/editFollowupDocumentList/{id}" , method = RequestMethod.GET)
-	public String editFollowupDocumentList(ModelMap map,@PathVariable("id") Integer id,HttpServletRequest request) 
-	{
+
+	@RequestMapping(value = "/editFollowupDocumentList/{id}", method = RequestMethod.GET)
+	public String editFollowupDocumentList(ModelMap map, @PathVariable("id") Integer id, HttpServletRequest request) {
 
 		loggerInfo.info("**[ editFollowupDocumentList Edit ContractType]**");
-		loggerTech.info("**[ editFollowupDocumentList Edit ContractType for edit ContractType"+id+"]**");
-		HttpSession  session=request.getSession();
-		Users usersObj=new Users();
-		if(session.getAttribute("usersObj")!=null)
-		{
-			usersObj=(Users)session.getAttribute("usersObj");
+		loggerTech.info("**[ editFollowupDocumentList Edit ContractType for edit ContractType" + id + "]**");
+		HttpSession session = request.getSession();
+		Users usersObj = new Users();
+		if (session.getAttribute("usersObj") != null) {
+			usersObj = (Users) session.getAttribute("usersObj");
 		}
 		System.out.println();
-		Map<String, Object> mapData=new HashMap<String, Object>();
-		mapData.put("employeeId", usersObj.getEmployeeEntity().getId());
+		Map<String, Object> mapData = new HashMap<String, Object>();
+		if(!usersObj.getUserRole().equals("ADMIN")) {
+			mapData.put("employeeId", usersObj.getEmployeeEntity().getId());
+		} else {
+			mapData.put("employeeId", null);
+		}
+		
 		mapData.put("documentId", id);
-		Map<String, Object> viewContractType = (Map<String, Object>) documentApprovalService.editFollowupDocumentList(mapData);
-		List<ContractTypeEntity> editContractTypeList=new ArrayList<ContractTypeEntity>();
+		Map<String, Object> viewContractType = (Map<String, Object>) documentApprovalService
+				.editFollowupDocumentList(mapData);
+		List<ContractTypeEntity> editContractTypeList = new ArrayList<ContractTypeEntity>();
 
-		if(viewContractType.get("editContractTypeList")!=null){
-			editContractTypeList=(List<ContractTypeEntity>) viewContractType.get("editContractTypeList");
+		if (viewContractType.get("editContractTypeList") != null) {
+			editContractTypeList = (List<ContractTypeEntity>) viewContractType.get("editContractTypeList");
 		}
-		List<SignatoriesMappingEntiry> profileSignatoriesMappingList=new ArrayList<SignatoriesMappingEntiry>();
-		if(viewContractType.get("profileSignatoriesMappingList")!=null){
-			profileSignatoriesMappingList=(List<SignatoriesMappingEntiry>) viewContractType.get("profileSignatoriesMappingList");
+		
+		
+		/*List<SignatoriesMappingEntiry> profileSignatoriesMappingList = new ArrayList<SignatoriesMappingEntiry>();
+		if (viewContractType.get("profileSignatoriesMappingList") != null) {
+			profileSignatoriesMappingList = (List<SignatoriesMappingEntiry>) viewContractType
+					.get("profileSignatoriesMappingList");
 		}
-		System.out.println("approvalAuth-->>"+profileSignatoriesMappingList.size());
-		if(profileSignatoriesMappingList.size()>0){
+		System.out.println("approvalAuth-->>" + profileSignatoriesMappingList.size());
+		if (profileSignatoriesMappingList.size() > 0) {*/
 			map.addAttribute("approvalAuth", "1");
-		}else{
+		/*} else {
 			map.addAttribute("approvalAuth", "0");
-		}
-		DocumentApprovarForm documentApprovarForm=new DocumentApprovarForm();
-		map.addAttribute("readonly","true");
-		map.addAttribute("readonlyTxt","readonlyTxt");
+		}*/
+		DocumentApprovarForm documentApprovarForm = new DocumentApprovarForm();
+		map.addAttribute("readonly", "true");
+		map.addAttribute("readonlyTxt", "readonlyTxt");
 		map.addAttribute("disabled", "disabled");
-		ContractTypeEntity contractTypeEntity=new ContractTypeEntity();
-		contractTypeEntity=editContractTypeList.get(0);
+		ContractTypeEntity contractTypeEntity = new ContractTypeEntity();
+		contractTypeEntity = editContractTypeList.get(0);
 		documentApprovarForm.setId(contractTypeEntity.getId());
 		documentApprovarForm.setContractDocument(contractTypeEntity.getContractDocument());
 		documentApprovarForm.setContractTypeName(contractTypeEntity.getContractTypeName());
 		map.addAttribute("documentApprovarForm", documentApprovarForm);
-		map.addAttribute("editContractTypeList",viewContractType.get("editContractTypeList") );
-		map.addAttribute("contractTypeList",viewContractType.get("contractTypeList") );
-		map.addAttribute("documentList",viewContractType.get("documentList") );
-		map.addAttribute("profileSignatoriesEntityList",viewContractType.get("profileSignatoriesEntityList") );
-		
-		//map.addAttribute("contentJsp","editContractType");
-		map.addAttribute("contentJsp","editFollowupDocumentList");
+		map.addAttribute("editContractTypeList", viewContractType.get("editContractTypeList"));
+		map.addAttribute("contractTypeList", viewContractType.get("contractTypeList"));
+		map.addAttribute("documentList", viewContractType.get("documentList"));
+		map.addAttribute("profileSignatoriesEntityList", viewContractType.get("profileSignatoriesEntityList"));
+
+		// map.addAttribute("contentJsp","editContractType");
+		map.addAttribute("contentJsp", "editFollowupDocumentList");
 		return "index";
 
 	}
 
 	@RequestMapping(value = "/approveDocument/{id}")
-	public String approveDocument(@PathVariable("id") Integer id,@ModelAttribute(value="documentApprovarForm") DocumentApprovarForm documentApprovarForm,HttpServletRequest request, BindingResult result) 
-	{
+	public String approveDocument(@PathVariable("id") Integer id,
+			@ModelAttribute(value = "documentApprovarForm") DocumentApprovarForm documentApprovarForm,
+			HttpServletRequest request, BindingResult result) {
 
-		HttpSession  session=request.getSession();
-		Users usersObj=new Users();
-		if(session.getAttribute("usersObj")!=null)
-		{
-			usersObj=(Users)session.getAttribute("usersObj");
+		HttpSession session = request.getSession();
+		Users usersObj = new Users();
+		if (session.getAttribute("usersObj") != null) {
+			usersObj = (Users) session.getAttribute("usersObj");
 		}
 		loggerInfo.info("**[ approveDocument Update ContractType]**");
 		loggerTech.info("**[ approveDocument Update ContractType]]**");
 
-		ContractTypeEntity contractTypeEntity=new ContractTypeEntity();
-		DocumentWorkflowEntity documentWorkflowEntity=new DocumentWorkflowEntity();
+		ContractTypeEntity contractTypeEntity = new ContractTypeEntity();
+		DocumentWorkflowEntity documentWorkflowEntity = new DocumentWorkflowEntity();
 		contractTypeEntity.setId(documentApprovarForm.getId());
 		contractTypeEntity.setContractStatus("Y");
 
-		DataModifier modifier=Utility.getDataModifier(usersObj);
+		DataModifier modifier = Utility.getDataModifier(usersObj);
 		documentWorkflowEntity.setFollowupDate(new Date());
 		documentWorkflowEntity.setFollowup(documentApprovarForm.getFollowupComment());
 		documentWorkflowEntity.setMailSent("N");
 		documentWorkflowEntity.setStatus("Y");
-		/*if(usersObj.getEmployeeEntity()!=null){
-			documentWorkflowEntity.setEmployeeEntity(usersObj.getEmployeeEntity());
-		}*/
+		/*
+		 * if(usersObj.getEmployeeEntity()!=null){
+		 * documentWorkflowEntity.setEmployeeEntity(usersObj.getEmployeeEntity()
+		 * ); }
+		 */
 		documentWorkflowEntity.setContractTypeEntity(contractTypeEntity);
 		documentWorkflowEntity.setLastChgBy(modifier.getLastChgBy());
 		documentWorkflowEntity.setLastChgTime(modifier.getLastChgTime());
 		documentWorkflowEntity.setLastChgDate(new Date());
-		System.out.println("approveDocumentList ** comment ["+documentApprovarForm.getFollowupComment()+"]");
-		Map<String, Object> map=new HashMap<String, Object>();
+		System.out.println("approveDocumentList ** comment [" + documentApprovarForm.getFollowupComment() + "]");
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("contractTypeEntity", contractTypeEntity);
 		map.put("documentWorkflowEntity", documentWorkflowEntity);
 		Map<String, Object> viewUser = (Map<String, Object>) documentApprovalService.approveDocument(map);
-		//return "redirect:/viewContractType";
+		// return "redirect:/viewContractType";
 		return "redirect:/followupDocumentList";
 	}
 
-
 	@RequestMapping(value = "/rejectDocument/{id}")
-	public String rejectDocument(@PathVariable("id") Integer id,@ModelAttribute(value="documentApprovarForm") DocumentApprovarForm documentApprovarForm,HttpServletRequest request, BindingResult result) 
-	{
+	public String rejectDocument(@PathVariable("id") Integer id,
+			@ModelAttribute(value = "documentApprovarForm") DocumentApprovarForm documentApprovarForm,
+			HttpServletRequest request, BindingResult result) {
 
-		HttpSession  session=request.getSession();
-		Users usersObj=new Users();
-		if(session.getAttribute("usersObj")!=null)
-		{
-			usersObj=(Users)session.getAttribute("usersObj");
+		HttpSession session = request.getSession();
+		Users usersObj = new Users();
+		if (session.getAttribute("usersObj") != null) {
+			usersObj = (Users) session.getAttribute("usersObj");
 		}
 		loggerInfo.info("**[ approveDocument Update ContractType]**");
 		loggerTech.info("**[ approveDocument Update ContractType]]**");
 
-
-		ContractTypeEntity contractTypeEntity=new ContractTypeEntity();
+		ContractTypeEntity contractTypeEntity = new ContractTypeEntity();
 		contractTypeEntity.setId(documentApprovarForm.getId());
 		contractTypeEntity.setContractStatus("N");
 
-		DocumentWorkflowEntity documentWorkflowEntity=new DocumentWorkflowEntity();
-		DataModifier modifier=Utility.getDataModifier(usersObj);
+		DocumentWorkflowEntity documentWorkflowEntity = new DocumentWorkflowEntity();
+		DataModifier modifier = Utility.getDataModifier(usersObj);
 		documentWorkflowEntity.setFollowupDate(new Date());
 		documentWorkflowEntity.setFollowup(documentApprovarForm.getFollowupComment());
 		documentWorkflowEntity.setMailSent("N");
 		documentWorkflowEntity.setStatus("N");
-		/*if(usersObj.getEmployeeEntity()!=null){
-			documentWorkflowEntity.setEmployeeEntity(usersObj.getEmployeeEntity());
-		}*/
+		/*
+		 * if(usersObj.getEmployeeEntity()!=null){
+		 * documentWorkflowEntity.setEmployeeEntity(usersObj.getEmployeeEntity()
+		 * ); }
+		 */
 		documentWorkflowEntity.setContractTypeEntity(contractTypeEntity);
 		documentWorkflowEntity.setLastChgBy(modifier.getLastChgBy());
 		documentWorkflowEntity.setLastChgTime(modifier.getLastChgTime());
 		documentWorkflowEntity.setLastChgDate(new Date());
-		System.out.println("approveDocumentList ** comment ["+documentApprovarForm.getFollowupComment()+"]");
-		Map<String, Object> map=new HashMap<String, Object>();
+		System.out.println("approveDocumentList ** comment [" + documentApprovarForm.getFollowupComment() + "]");
+		Map<String, Object> map = new HashMap<String, Object>();
 
 		map.put("contractTypeEntity", contractTypeEntity);
 
 		map.put("documentWorkflowEntity", documentWorkflowEntity);
-		
-		System.out.println("approveDocumentList ** comment ["+documentApprovarForm.getFollowupComment()+"] approve/reject ["+documentApprovarForm.getEnabled()+"]");
-		
+
+		System.out.println("approveDocumentList ** comment [" + documentApprovarForm.getFollowupComment()
+				+ "] approve/reject [" + documentApprovarForm.getEnabled() + "]");
+
 		Map<String, Object> viewUser = (Map<String, Object>) documentApprovalService.approveDocument(map);
 		return "redirect:/followupDocumentList";
 	}

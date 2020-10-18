@@ -24,21 +24,7 @@
 <body>
 	<form:form name="Documents" modelAttribute="documentsEntity">
 		<div class="middlecontent">
-			<div class="leftbox">
-				<div class="homeleftboxbg">
-					<div class="box1_con_blue">
-						<br /> <input class="press" type="button"
-							value="<spring:message code="label.new"/>"
-							onclick="submitForm('Documents', '/tatasky/viewDocuments');" />
-						<input class="press" type="button" id="update"
-							onclick="submitForm('Documents', '/tatasky/editDocumentsActive/${documentsEntity.id}');"
-							value="<spring:message code="label.update"/>" /> <input
-							class="press" type="button" id="update"
-							onclick="submitForm('Documents', '/tatasky/modifyDocuments/${documentsEntity.id}');"
-							value="<spring:message code="label.save"/>" />
-					</div>
-				</div>
-			</div>
+			
 			<div class="middlebox">
 
 				<font style="font-size: 20px">Enter Document Details</font>
@@ -107,7 +93,19 @@
 						</table>
 					</div>
 				</fieldset>
-
+				<div>
+					<div class="box1_con_blue">
+						<br /> <input class="press" type="button"
+							value="<spring:message code="label.new"/>"
+							onclick="submitForm('Documents', '/tatasky/viewDocuments');" />
+						<input class="press" type="button" id="update"
+							onclick="submitForm('Documents', '/tatasky/editDocumentsActive/${documentsEntity.id}');"
+							value="<spring:message code="label.update"/>" /> <input
+							class="press" type="button" id="update"
+							onclick="submitForm('Documents', '/tatasky/modifyDocuments/${documentsEntity.id}');"
+							value="<spring:message code="label.save"/>" />
+					</div>
+				</div>
 			</div>
 		</div>
 

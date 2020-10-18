@@ -67,13 +67,13 @@ public class Application implements Serializable {
     private String parent_id;
 	
 	@Column(name="permission")
-	private String permission;
+	private Integer permission;
 	
-	public String getPermission() {
+	public Integer getPermission() {
 		return permission;
 	}
 
-	public void setPermission(String permission) {
+	public void setPermission(Integer permission) {
 		this.permission = permission;
 	}
 

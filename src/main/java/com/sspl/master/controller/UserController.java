@@ -87,17 +87,13 @@ public class UserController
 	
 	}
 	
-	
-
-	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String saveUser(@ModelAttribute(value="usersEntity") UsersEntity usersEntity,HttpServletRequest request, BindingResult result) 
 	{
 		HttpSession  session=request.getSession();
-		 Users usersObj=new Users();
-		if(session.getAttribute("usersObj")!=null)
-		{
-		usersObj=(Users)session.getAttribute("usersObj");
+		Users usersObj=new Users();
+		if(session.getAttribute("usersObj")!=null) {
+			usersObj=(Users)session.getAttribute("usersObj");
 		}
 		System.out.println(request.getParameter("roleId"));
 		Map<String, Object> map=new HashMap<String, Object>();
@@ -108,7 +104,7 @@ public class UserController
 		map.put("usersEntity", usersEntity);
 		map.put("role", role);
 		
-		
+		System.out.println(usersEntity);
 		Map<String, Object> users = (Map<String, Object>) userService.saveUser(map);
 		return "redirect:/viewUser";
 	}

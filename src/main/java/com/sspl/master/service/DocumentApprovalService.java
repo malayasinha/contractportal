@@ -5,6 +5,8 @@ import java.util.Map;
 public interface DocumentApprovalService {
 
 	Map<String, Object> followupDocumentList();
+	
+	Map<String, Object> followupDocumentList(String username);
 
 	Map<String, Object> editFollowupDocumentList(Map<String, Object> mapData);
 

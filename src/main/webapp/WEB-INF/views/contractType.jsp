@@ -86,13 +86,13 @@
 								<td><form:input path="contractTypeName"
 										style="width: 116px" validate="Contract Type,string,yes" /></td>
 								<td><form:label path="">
-										<spring:message code="label.document" />
+										<spring:message code="label.department" />
 									</form:label></td>
-								<td><select name="document" style="width: 122px;">
+								<td><select name="department" style="width: 122px;">
 										<option value="">---Select---</option>
-										<c:if test="${!empty documentList}">
-											<c:forEach items="${documentList}" var="document">
-												<option value="${document.id}">${document.documentName}</option>
+										<c:if test="${!empty departmentList}">
+											<c:forEach items="${departmentList}" var="department">
+												<option value="${department.id}">${department.departmentName}</option>
 											</c:forEach>
 										</c:if>
 								</select></td>
@@ -123,9 +123,7 @@
 							</tr>
 							<tr>
 							<td>
-							<input class="press" type="button" id="update"
-							onclick="submitForm('ContractType', '/tatasky/addContractType');"
-							value="<spring:message code="label.save"/>" />
+							
 								</td>
 							</tr>
 							
@@ -133,7 +131,13 @@
 					</div>
 
 				</fieldset>
-
+				<div>
+					<div class="box1_con_blue">
+					<input class="press" type="button" id="update"
+							onclick="submitForm('ContractType', '/tatasky/addContractType');"
+							value="<spring:message code="label.save"/>" />
+					</div>
+				</div>
 			</div>
 		</div>
 	</form:form>

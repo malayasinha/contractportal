@@ -26,6 +26,8 @@ public class FileUploadDocForm {
 
     private String enabled;
     
+    private String department;
+    
 	private List<MultipartFile> files;
 
 	public String getContractTypeName() {
@@ -75,5 +77,22 @@ public class FileUploadDocForm {
 	public void setFiles(List<MultipartFile> files) {
 		this.files = files;
 	}
+	
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	@Override
+	public String toString() {
+		return "FileUploadDocForm [id=" + id + ", contractTypeName=" + contractTypeName + ", contractDocument="
+				+ contractDocument + ", profile=" + profile + ", document=" + document + ", enabled=" + enabled
+				+ ", files=" + files + "]";
+	}
+	
+	
 
 }

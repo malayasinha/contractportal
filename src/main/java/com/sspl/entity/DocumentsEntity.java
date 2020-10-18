@@ -13,9 +13,6 @@ import javax.persistence.Table;
 @Table(name="document") 
 public class DocumentsEntity implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id  
@@ -95,6 +92,13 @@ public class DocumentsEntity implements Serializable {
 
 	public void setLastChgTime(String lastChgTime) {
 		this.lastChgTime = lastChgTime;
+	}
+
+	@Override
+	public String toString() {
+		return "DocumentsEntity [id=" + id + ", documentName=" + documentName + ", documentCode=" + documentCode
+				+ ", status=" + status + ", lastChgBy=" + lastChgBy + ", lastChgDate=" + lastChgDate + ", lastChgTime="
+				+ lastChgTime + "]";
 	}
 
 

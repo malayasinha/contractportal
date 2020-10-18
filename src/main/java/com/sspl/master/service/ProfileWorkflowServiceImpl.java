@@ -27,5 +27,10 @@ public class ProfileWorkflowServiceImpl implements ProfileWorkflowService {
 	public Map<String, Object> saveProfileWorkflow(Map<String, Object> map) {
 		return profileWorkflowDAO.saveProfileWorkflow(map);
 	}
+
+	@Override
+	public Map<String, Object> editProfileWorkflow(Integer id) {
+		return profileWorkflowDAO.editProfileWorkflow(id);
+	}
 	
 }

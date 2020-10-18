@@ -11,170 +11,175 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="profile_signatories")
-public class ProfileSignatoriesEntity implements Serializable{
+@Table(name = "profile_signatories")
+public class ProfileSignatoriesEntity implements Serializable {
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			
-			@Id
-		    @Column(name="profile_sig_id")
-		    @GeneratedValue
-		    private Integer id;
-			
-			
-			@Column(name="profile_sig_name")
-			private String profileSigName;
-			
-			public String getProfileSigName() {
-				return profileSigName;
-			}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-			public void setProfileSigName(String profileSigName) {
-				this.profileSigName = profileSigName;
-			}
+	@Id
+	@Column(name = "profile_sig_id")
+	@GeneratedValue
+	private Integer id;
 
-			@ManyToOne
-		    @JoinColumn(name="profile_id")
-		    private   ProfileEntity profileEntity;
-			
-			@ManyToOne
-		    @JoinColumn(name="document_id")
-		    private   DocumentsEntity documentsEntity;
-			
-			public DocumentsEntity getDocumentsEntity() {
-				return documentsEntity;
-			}
+	@Column(name = "profile_sig_name")
+	private String profileSigName;
 
-			public void setDocumentsEntity(DocumentsEntity documentsEntity) {
-				this.documentsEntity = documentsEntity;
-			}
+	public String getProfileSigName() {
+		return profileSigName;
+	}
 
-			@ManyToOne
-		    @JoinColumn(name="signatory_id_1")
-		    private   SignatoryEntity signatoryEntity1;
-	
-			@ManyToOne
-		    @JoinColumn(name="signatory_id_2")
-		    private   SignatoryEntity signatoryEntity2;
+	public void setProfileSigName(String profileSigName) {
+		this.profileSigName = profileSigName;
+	}
 
-			@ManyToOne
-		    @JoinColumn(name="signatory_id_3")
-		    private   SignatoryEntity signatoryEntity3;
+	@ManyToOne
+	@JoinColumn(name = "profile_id")
+	private ProfileEntity profileEntity;
 
-			@ManyToOne
-		    @JoinColumn(name="signatory_id_4")
-		    private   SignatoryEntity signatoryEntity4;
+	@ManyToOne
+	@JoinColumn(name = "document_id")
+	private DocumentsEntity documentsEntity;
 
-			@ManyToOne
-		    @JoinColumn(name="signatory_id_5")
-		    private   SignatoryEntity signatoryEntity5;
+	public DocumentsEntity getDocumentsEntity() {
+		return documentsEntity;
+	}
 
+	public void setDocumentsEntity(DocumentsEntity documentsEntity) {
+		this.documentsEntity = documentsEntity;
+	}
 
-		    @Column(name="status")
-		    private String enabled; 
-		    
-		    @Column(name="last_chg_by")
-		    private String lastChgBy;
-		    
-		    @Column(name="last_chg_date")
-		    private Date lastChgDate;
-		    
-		    @Column(name="last_chg_time")
-		    private String lastChgTime;
+	@ManyToOne
+	@JoinColumn(name = "signatory_id_1")
+	private SignatoryEntity signatoryEntity1;
 
-			public Integer getId() {
-				return id;
-			}
+	@ManyToOne
+	@JoinColumn(name = "signatory_id_2")
+	private SignatoryEntity signatoryEntity2;
 
-			public void setId(Integer id) {
-				this.id = id;
-			}
+	@ManyToOne
+	@JoinColumn(name = "signatory_id_3")
+	private SignatoryEntity signatoryEntity3;
 
-			public ProfileEntity getProfileEntity() {
-				return profileEntity;
-			}
+	@ManyToOne
+	@JoinColumn(name = "signatory_id_4")
+	private SignatoryEntity signatoryEntity4;
 
-			public void setProfileEntity(ProfileEntity profileEntity) {
-				this.profileEntity = profileEntity;
-			}
+	@ManyToOne
+	@JoinColumn(name = "signatory_id_5")
+	private SignatoryEntity signatoryEntity5;
 
-			public SignatoryEntity getSignatoryEntity1() {
-				return signatoryEntity1;
-			}
+	@Column(name = "status")
+	private String enabled;
 
-			public void setSignatoryEntity1(SignatoryEntity signatoryEntity1) {
-				this.signatoryEntity1 = signatoryEntity1;
-			}
+	@Column(name = "last_chg_by")
+	private String lastChgBy;
 
-			public SignatoryEntity getSignatoryEntity2() {
-				return signatoryEntity2;
-			}
+	@Column(name = "last_chg_date")
+	private Date lastChgDate;
 
-			public void setSignatoryEntity2(SignatoryEntity signatoryEntity2) {
-				this.signatoryEntity2 = signatoryEntity2;
-			}
+	@Column(name = "last_chg_time")
+	private String lastChgTime;
 
-			public SignatoryEntity getSignatoryEntity3() {
-				return signatoryEntity3;
-			}
+	public Integer getId() {
+		return id;
+	}
 
-			public void setSignatoryEntity3(SignatoryEntity signatoryEntity3) {
-				this.signatoryEntity3 = signatoryEntity3;
-			}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-			public SignatoryEntity getSignatoryEntity4() {
-				return signatoryEntity4;
-			}
+	public ProfileEntity getProfileEntity() {
+		return profileEntity;
+	}
 
-			public void setSignatoryEntity4(SignatoryEntity signatoryEntity4) {
-				this.signatoryEntity4 = signatoryEntity4;
-			}
+	public void setProfileEntity(ProfileEntity profileEntity) {
+		this.profileEntity = profileEntity;
+	}
 
-			public SignatoryEntity getSignatoryEntity5() {
-				return signatoryEntity5;
-			}
+	public SignatoryEntity getSignatoryEntity1() {
+		return signatoryEntity1;
+	}
 
-			public void setSignatoryEntity5(SignatoryEntity signatoryEntity5) {
-				this.signatoryEntity5 = signatoryEntity5;
-			}
+	public void setSignatoryEntity1(SignatoryEntity signatoryEntity1) {
+		this.signatoryEntity1 = signatoryEntity1;
+	}
 
-			public String getEnabled() {
-				return enabled;
-			}
+	public SignatoryEntity getSignatoryEntity2() {
+		return signatoryEntity2;
+	}
 
-			public void setEnabled(String enabled) {
-				this.enabled = enabled;
-			}
+	public void setSignatoryEntity2(SignatoryEntity signatoryEntity2) {
+		this.signatoryEntity2 = signatoryEntity2;
+	}
 
-			public String getLastChgBy() {
-				return lastChgBy;
-			}
+	public SignatoryEntity getSignatoryEntity3() {
+		return signatoryEntity3;
+	}
 
-			public void setLastChgBy(String lastChgBy) {
-				this.lastChgBy = lastChgBy;
-			}
+	public void setSignatoryEntity3(SignatoryEntity signatoryEntity3) {
+		this.signatoryEntity3 = signatoryEntity3;
+	}
 
-			public Date getLastChgDate() {
-				return lastChgDate;
-			}
+	public SignatoryEntity getSignatoryEntity4() {
+		return signatoryEntity4;
+	}
 
-			public void setLastChgDate(Date lastChgDate) {
-				this.lastChgDate = lastChgDate;
-			}
+	public void setSignatoryEntity4(SignatoryEntity signatoryEntity4) {
+		this.signatoryEntity4 = signatoryEntity4;
+	}
 
-			public String getLastChgTime() {
-				return lastChgTime;
-			}
+	public SignatoryEntity getSignatoryEntity5() {
+		return signatoryEntity5;
+	}
 
-			public void setLastChgTime(String lastChgTime) {
-				this.lastChgTime = lastChgTime;
-			}
+	public void setSignatoryEntity5(SignatoryEntity signatoryEntity5) {
+		this.signatoryEntity5 = signatoryEntity5;
+	}
 
+	public String getEnabled() {
+		return enabled;
+	}
 
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getLastChgBy() {
+		return lastChgBy;
+	}
+
+	public void setLastChgBy(String lastChgBy) {
+		this.lastChgBy = lastChgBy;
+	}
+
+	public Date getLastChgDate() {
+		return lastChgDate;
+	}
+
+	public void setLastChgDate(Date lastChgDate) {
+		this.lastChgDate = lastChgDate;
+	}
+
+	public String getLastChgTime() {
+		return lastChgTime;
+	}
+
+	public void setLastChgTime(String lastChgTime) {
+		this.lastChgTime = lastChgTime;
+	}
+
+	@Override
+	public String toString() {
+		return "ProfileSignatoriesEntity [id=" + id + ", profileSigName=" + profileSigName + ", profileEntity="
+				+ profileEntity + ", documentsEntity=" + documentsEntity + ", signatoryEntity1=" + signatoryEntity1
+				+ ", signatoryEntity2=" + signatoryEntity2 + ", signatoryEntity3=" + signatoryEntity3
+				+ ", signatoryEntity4=" + signatoryEntity4 + ", signatoryEntity5=" + signatoryEntity5 + ", enabled="
+				+ enabled + ", lastChgBy=" + lastChgBy + ", lastChgDate=" + lastChgDate + ", lastChgTime=" + lastChgTime
+				+ "]";
+	}
 
 }

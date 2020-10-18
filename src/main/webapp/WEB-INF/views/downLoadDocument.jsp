@@ -12,7 +12,8 @@ if(request.getAttribute("contractTypeEntity")!=null){
   String filepath = contractTypeEntity.getUploadedContractPath()();   
   response.setContentType("APPLICATION/OCTET-STREAM");   
   response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");   
-  java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath+ File.separator + filename);  
+  java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath+ File.separator + filename);
+  System.out.println(filepath+ File.separator + filename)
   int i;   
   while ((i=fileInputStream.read()) != -1) {  
     out.write(i);   

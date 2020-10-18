@@ -32,11 +32,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sspl.entity.ContractReviewEntity;
 import com.sspl.entity.ContractTypeEntity;
+import com.sspl.entity.Department;
 import com.sspl.entity.DocumentsEntity;
+import com.sspl.entity.ProfileEntity;
 import com.sspl.entity.ProfileSignatoriesEntity;
 import com.sspl.entity.Users;
 import com.sspl.master.form.FileUploadDocForm;
 import com.sspl.master.service.ContractMngmtService;
+import com.sspl.master.service.ProfileService;
 import com.sspl.utility.DataModifier;
 import com.sspl.utility.Utility;
 
@@ -47,6 +50,9 @@ public class ContractMngmtController {
 
 	@Autowired
 	private ContractMngmtService contractMngmtService;
+	
+	@Autowired
+	private ProfileService profileService;
 
 	@RequestMapping(value = "/viewContractType", method = { RequestMethod.GET,RequestMethod.POST })
 	public String viewContractType(ModelMap map) 
@@ -57,7 +63,7 @@ public class ContractMngmtController {
 		map.addAttribute("contractTypeList", viewContractType.get("contractTypeList"));
 		map.addAttribute("documentList", viewContractType.get("documentList"));
 		map.addAttribute("profileSignatoriesEntityList", viewContractType.get("profileSignatoriesEntityList"));
-
+		map.addAttribute("departmentList", viewContractType.get("departmentList"));
 		map.addAttribute("contentJsp","contractType");
 		return "index";
 	}
@@ -107,107 +113,111 @@ public class ContractMngmtController {
 	}
 
 	@RequestMapping(value = "/addContractType", method = RequestMethod.POST)
-	public String saveContractType(@ModelAttribute(value="fileUploadDocForm") FileUploadDocForm fileUploadDocForm,Model map,final RedirectAttributes redirectAttributes,HttpServletRequest request) 
-	{
+	public String saveContractType(@ModelAttribute(value="fileUploadDocForm") FileUploadDocForm fileUploadDocForm,
+			Model map,final RedirectAttributes redirectAttributes,HttpServletRequest request)  {
 		HttpSession  session=request.getSession();
 		Users usersObj=new Users();
 		ContractTypeEntity contractTypeEntity=new ContractTypeEntity();
-		if(session.getAttribute("usersObj")!=null)
-		{
+		if(session.getAttribute("usersObj")!=null) {
 			usersObj=(Users)session.getAttribute("usersObj");
 			DataModifier obj=Utility.getDataModifier(usersObj);
 			contractTypeEntity.setLastChgBy(obj.getLastChgBy());
 			contractTypeEntity.setLastChgDate(obj.getLastChgDate());
 			contractTypeEntity.setLastChgTime(obj.getLastChgTime());
 		}
-
+				
 		loggerInfo.info("**[ saveFiles File Upload]**");
-		String docId="";
-		String signatoryId="";
-		docId=fileUploadDocForm.getDocument();
-		signatoryId=fileUploadDocForm.getProfile();
-		System.out.println("**[ saveFiles Name "+fileUploadDocForm.getContractDocument()+"]**");
-		System.out.println("**[ saveFiles  Doc type "+fileUploadDocForm.getContractTypeName()+"]**");
-		System.out.println("**[ saveFiles  doc "+docId+"]**");
-		System.out.println("**[ saveFiles  signatory "+signatoryId+"]**");
-		System.out.println("**[ saveFiles  status  "+fileUploadDocForm.getEnabled()+"]**");
-		System.out.println("**[ saveFiles  id "+fileUploadDocForm.getId()+"]**");
-		System.out.println("**[ saveFiles  File "+fileUploadDocForm.getFiles()+"]**");
-
+		String depId="";
+		Integer profileId = Integer.parseInt(fileUploadDocForm.getProfile());
+		depId=fileUploadDocForm.getDepartment();
+		
+		System.out.println(fileUploadDocForm);
 		
 		contractTypeEntity.setContractTypeName(fileUploadDocForm.getContractTypeName());
-		if(!docId.equalsIgnoreCase("")){
+		/*if(!docId.equalsIgnoreCase("")){
 			DocumentsEntity documentsEntity=new DocumentsEntity();
 			documentsEntity.setId(Integer.parseInt(fileUploadDocForm.getDocument()));
-			contractTypeEntity.setDocumentsEntity(documentsEntity);	
-		}
-		if(!signatoryId.equalsIgnoreCase("")){
+			contractTypeEntity.setDocumentsEntity(documentsEntity);
+			System.out.println(documentsEntity);
+		}*/
+		Department department = new Department();
+		department.setId(Integer.parseInt(depId));
+		contractTypeEntity.setDepartment(department);
+		
+		ProfileEntity profileEntity = new ProfileEntity();
+		if(profileId != null){
+			 profileEntity = profileService.getProfile(profileId);
+			System.out.println(profileEntity);
+			
 			ProfileSignatoriesEntity profileSignatoriesEntity=new ProfileSignatoriesEntity();
 			profileSignatoriesEntity.setId(Integer.parseInt(fileUploadDocForm.getProfile()));
 			contractTypeEntity.setProfileSignatoriesEntity(profileSignatoriesEntity);
+			System.out.println(profileSignatoriesEntity);
 		}
 		contractTypeEntity.setEnabled(fileUploadDocForm.getEnabled());
-		contractTypeEntity.setSignedContractPath("#");
 		contractTypeEntity.setContractStatus("N");
-		String rootPath="/APACHELOGS/UPLODED_FILE";
+		contractTypeEntity.setUploadedContractPath(profileEntity.getInputFolder());
+		contractTypeEntity.setSignedContractPath(profileEntity.getOutputFolder());
+		
+		System.out.println(contractTypeEntity);
+		
 		Properties properties=new Properties();
 
 		URL resourcePath =  Thread.currentThread().getContextClassLoader().getResource("messages_en.properties");
 		try {
 			properties.load(new FileInputStream(new File(resourcePath.getFile())));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(properties.getProperty("file.rootPath")!=null){
+		/*if(properties.getProperty("file.rootPath")!=null){
 			rootPath=properties.getProperty("file.rootPath").toString().trim();
-		}
+		}*/
 
 		String startFileName="";
 		startFileName=Utility.fileNameAppender();
 		List<MultipartFile> files = fileUploadDocForm.getFiles();
 		System.out.println("files.size() -->"+files.size() );
 		if(null != files && files.size() > 0) {
-			for (MultipartFile multipartFile : files) {
-				//	String name="";
-				String fileName = startFileName+multipartFile.getOriginalFilename();
-				contractTypeEntity.setContractDocument(multipartFile.getOriginalFilename());
-				contractTypeEntity.setUploadedContractDocument(fileName);
-				contractTypeEntity.setUploadedContractPath(rootPath);
-				try {
-					byte[] bytes = multipartFile.getBytes();
+			MultipartFile multipartFile = files.get(0);
+			
+			//	String name="";
+			String fileName = startFileName+multipartFile.getOriginalFilename();
+			contractTypeEntity.setContractDocument(multipartFile.getOriginalFilename());
+			contractTypeEntity.setUploadedContractDocument(fileName);
+			
+			try {
+				byte[] bytes = multipartFile.getBytes();
 
-					// Creating the directory to store file
-					//String rootPath = System.getProperty("catalina.home");
-					File dir = new File(rootPath + File.separator);
-					if (!dir.exists())
-						dir.mkdirs();
+				// Creating the directory to store file
+				//String rootPath = System.getProperty("catalina.home");
+				File dir = new File(contractTypeEntity.getUploadedContractPath() + File.separator);
+				if (!dir.exists())
+					dir.mkdirs();
 
-					// Create the file on server
-					/*				File serverFile = new File(dir.getAbsolutePath()
-							+ File.separator + name);
-					 */	
-					System.out.println("dir -->"+dir.getAbsolutePath());
-					loggerTech.info("**[ saveFiles  Orignal "+multipartFile.getOriginalFilename()+" Name "+multipartFile.getName()+"]**");
-					System.out.println("**[ saveFiles  Orignal "+multipartFile.getOriginalFilename()+" Name "+multipartFile.getName()+"]**");
-					File serverFile = new File(dir.getAbsolutePath()
-							+ File.separator + startFileName+multipartFile.getOriginalFilename());
-					System.out.println("serverFile -->"+serverFile.getAbsolutePath());
-					BufferedOutputStream stream = new BufferedOutputStream(
-							new FileOutputStream(serverFile));
-					stream.write(bytes);
-					stream.close();
-					loggerTech.info("**[ saveFiles  Server File Location "+ serverFile.getAbsolutePath()+"]**");
+				// Create the file on server
+				/*				File serverFile = new File(dir.getAbsolutePath()
+						+ File.separator + name);
+				 */	
+				System.out.println("dir -->"+dir.getAbsolutePath());
+				loggerTech.info("**[ saveFiles  Orignal "+multipartFile.getOriginalFilename()+" Name "+multipartFile.getName()+"]**");
+				System.out.println("**[ saveFiles  Orignal "+multipartFile.getOriginalFilename()+" Name "+multipartFile.getName()+"]**");
+				File serverFile = new File(dir.getAbsolutePath()
+						+ File.separator + startFileName+multipartFile.getOriginalFilename());
+				System.out.println("serverFile -->"+serverFile.getAbsolutePath());
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+				loggerTech.info("**[ saveFiles  Server File Location "+ serverFile.getAbsolutePath()+"]**");
 
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+
+			
 		}
 		
 		Map<String, Object> mapData=new HashMap<String, Object>();
@@ -270,6 +280,7 @@ public class ContractMngmtController {
 		Map<String, Object> modifyContractTypeList = (Map<String, Object>) contractMngmtService.viewContractType();
 		map.addAttribute("contractTypeList", modifyContractTypeList.get("contractTypeList"));
 		map.addAttribute("documentList", modifyContractTypeList.get("documentList"));
+		map.addAttribute("departmentList", modifyContractTypeList.get("departmentList"));
 		map.addAttribute("profileSignatoriesEntityList", modifyContractTypeList.get("profileSignatoriesEntityList"));
 
 		map.addAttribute("contentJsp","modifyContractTypeList");
@@ -292,6 +303,7 @@ public class ContractMngmtController {
 		map.addAttribute("contractTypeList",viewContractType.get("contractTypeList") );
 		map.addAttribute("documentList",viewContractType.get("documentList") );
 		map.addAttribute("profileSignatoriesEntityList",viewContractType.get("profileSignatoriesEntityList") );
+		map.addAttribute("departmentList",viewContractType.get("departmentList") );
 		
 		map.addAttribute("contentJsp","modifyContractTypeList");
 		return "index";

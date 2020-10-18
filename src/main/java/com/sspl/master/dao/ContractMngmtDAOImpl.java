@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sspl.entity.ContractReviewEntity;
 import com.sspl.entity.ContractTypeEntity;
+import com.sspl.entity.Department;
 import com.sspl.entity.DocumentsEntity;
 import com.sspl.entity.ProfileSignatoriesEntity;
 
@@ -35,13 +36,16 @@ public class ContractMngmtDAOImpl implements ContractMngmtDAO {
 			List<ContractTypeEntity> contractTypeList=new ArrayList<ContractTypeEntity>();
 			List<DocumentsEntity> documentList=new ArrayList<DocumentsEntity>();
 			List<ProfileSignatoriesEntity> profileSignatoriesEntityList=new ArrayList<ProfileSignatoriesEntity>();
+			List<Department> departmentList=new ArrayList<Department>();
 			
 			contractTypeList=this.sessionFactory.getCurrentSession().createQuery("from ContractTypeEntity").list();
 			documentList=this.sessionFactory.getCurrentSession().createQuery("from DocumentsEntity where status='1'").list();
-			profileSignatoriesEntityList=this.sessionFactory.getCurrentSession().createQuery("from ProfileSignatoriesEntity where status='1'").list();
+			profileSignatoriesEntityList = this.sessionFactory.getCurrentSession().createQuery("from ProfileSignatoriesEntity where status='1'").list();
+			departmentList = this.sessionFactory.getCurrentSession().createQuery("from Department where status='1'").list();
 			
 			mapData.put("contractTypeList", contractTypeList);
 			mapData.put("documentList", documentList);
+			mapData.put("departmentList", departmentList);
 			mapData.put("profileSignatoriesEntityList", profileSignatoriesEntityList);
 			return mapData;
 		}
@@ -56,16 +60,21 @@ public class ContractMngmtDAOImpl implements ContractMngmtDAO {
 		List<ContractTypeEntity> contractTypeList=new ArrayList<ContractTypeEntity>();
 		List<DocumentsEntity> documentList=new ArrayList<DocumentsEntity>();
 		List<ProfileSignatoriesEntity> profileSignatoriesEntityList=new ArrayList<ProfileSignatoriesEntity>();
+		List<Department> departmentList=new ArrayList<Department>();
+		
 		
 		editContractTypeList=this.sessionFactory.getCurrentSession().createQuery("from ContractTypeEntity as ue where ue.id="+id).list();
 		contractTypeList=this.sessionFactory.getCurrentSession().createQuery("from ContractTypeEntity").list();
 		documentList=this.sessionFactory.getCurrentSession().createQuery("from DocumentsEntity where status='1'").list();
 		profileSignatoriesEntityList=this.sessionFactory.getCurrentSession().createQuery("from ProfileSignatoriesEntity where status='1'").list();
-
+		departmentList = this.sessionFactory.getCurrentSession().createQuery("from Department where status='1'").list();
+		
 		mapData.put("editContractTypeList", editContractTypeList);
 		mapData.put("contractTypeList", contractTypeList);
 		mapData.put("documentList", documentList);
 		mapData.put("profileSignatoriesEntityList", profileSignatoriesEntityList);
+		mapData.put("departmentList", departmentList);
+		
 		return mapData;
 	}
 

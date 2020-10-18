@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sspl.entity.ProfileEntity;
 import com.sspl.master.dao.ProfileDAO;
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -13,10 +14,15 @@ public class ProfileServiceImpl implements ProfileService {
 	@Autowired
 	private ProfileDAO profileDAO;
 
-	public void setProfileDao(ProfileDAO profileDAO) {
+/*	public void setProfileDao(ProfileDAO profileDAO) {
 		this.profileDAO = profileDAO;
 	}
-
+*/
+	@Transactional
+	public ProfileEntity getProfile(Integer id) {
+		return profileDAO.getProfile(id);
+	}
+	
 	@Transactional
 	public Map<String, Object> viewProfile() {
 		return profileDAO.viewProfile();

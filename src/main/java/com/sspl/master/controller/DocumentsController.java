@@ -150,7 +150,7 @@ public class DocumentsController {
 		map.addAttribute("signatoryEntity", new SignatoryEntity());
 		Map<String, Object> viewSignatory = (Map<String, Object>) documentService.viewSignatory();
 		map.addAttribute("signatoryList", viewSignatory.get("signatoryList"));
-
+		
 		map.addAttribute("contentJsp","viewSignatory");
 		return "index";
 	}

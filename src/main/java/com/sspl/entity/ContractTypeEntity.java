@@ -11,166 +11,185 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="contract_type")
-public class ContractTypeEntity implements Serializable{
+@Table(name = "contract_type")
+public class ContractTypeEntity implements Serializable {
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			
-			@Id
-		    @Column(name="contract_type_id")
-		    @GeneratedValue
-		    private Integer id;
-				
-			@Column(name="contract_type_name")
-			private String contractTypeName;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-			@Column(name="contract_document")
-			private String contractDocument;
+	@Id
+	@Column(name = "contract_type_id")
+	@GeneratedValue
+	private Integer id;
 
-			@Column(name="uploaded_contract_path")
-			private String uploadedContractPath;
+	@Column(name = "contract_type_name")
+	private String contractTypeName;
 
-			
-			@Column(name="signed_contract_path")
-			private String signedContractPath;
+	@Column(name = "contract_document")
+	private String contractDocument;
 
-			public String getSignedContractPath() {
-				return signedContractPath;
-			}
+	@Column(name = "uploaded_contract_path")
+	private String uploadedContractPath;
 
-			public void setSignedContractPath(String signedContractPath) {
-				this.signedContractPath = signedContractPath;
-			}
+	@Column(name = "signed_contract_path")
+	private String signedContractPath;
 
-			public String getUploadedContractPath() {
-				return uploadedContractPath;
-			}
+	public String getSignedContractPath() {
+		return signedContractPath;
+	}
 
-			public void setUploadedContractPath(String uploadedContractPath) {
-				this.uploadedContractPath = uploadedContractPath;
-			}
-			
-			@Column(name="uploaded_contract_document")
-			private String uploadedContractDocument;
+	public void setSignedContractPath(String signedContractPath) {
+		this.signedContractPath = signedContractPath;
+	}
 
-			public String getUploadedContractDocument() {
-				return uploadedContractDocument;
-			}
+	public String getUploadedContractPath() {
+		return uploadedContractPath;
+	}
 
-			public void setUploadedContractDocument(String uploadedContractDocument) {
-				this.uploadedContractDocument = uploadedContractDocument;
-			}
+	public void setUploadedContractPath(String uploadedContractPath) {
+		this.uploadedContractPath = uploadedContractPath;
+	}
 
-			@ManyToOne
-		    @JoinColumn(name="profile_sig_id")
-		    private   ProfileSignatoriesEntity profileSignatoriesEntity;
-			
-			@ManyToOne
-		    @JoinColumn(name="document_id")
-		    private   DocumentsEntity documentsEntity;
+	@Column(name = "uploaded_contract_document")
+	private String uploadedContractDocument;
 
-			
-			public Integer getId() {
-				return id;
-			}
+	public String getUploadedContractDocument() {
+		return uploadedContractDocument;
+	}
 
-			public void setId(Integer id) {
-				this.id = id;
-			}
+	public void setUploadedContractDocument(String uploadedContractDocument) {
+		this.uploadedContractDocument = uploadedContractDocument;
+	}
 
-			public String getContractTypeName() {
-				return contractTypeName;
-			}
+	@ManyToOne
+	@JoinColumn(name = "profile_sig_id")
+	private ProfileSignatoriesEntity profileSignatoriesEntity;
 
-			public void setContractTypeName(String contractTypeName) {
-				this.contractTypeName = contractTypeName;
-			}
+	@ManyToOne
+	@JoinColumn(name = "document_id")
+	private DocumentsEntity documentsEntity;
 
-			public String getContractDocument() {
-				return contractDocument;
-			}
+	@ManyToOne
+	@JoinColumn(name = "department_id")
+	private Department department;
 
-			public void setContractDocument(String contractDocument) {
-				this.contractDocument = contractDocument;
-			}
+	
+	public Department getDepartment() {
+		return department;
+	}
 
-			public ProfileSignatoriesEntity getProfileSignatoriesEntity() {
-				return profileSignatoriesEntity;
-			}
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 
-			public void setProfileSignatoriesEntity(ProfileSignatoriesEntity profileSignatoriesEntity) {
-				this.profileSignatoriesEntity = profileSignatoriesEntity;
-			}
+	public Integer getId() {
+		return id;
+	}
 
-			public DocumentsEntity getDocumentsEntity() {
-				return documentsEntity;
-			}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-			public void setDocumentsEntity(DocumentsEntity documentsEntity) {
-				this.documentsEntity = documentsEntity;
-			}
+	public String getContractTypeName() {
+		return contractTypeName;
+	}
 
-			public String getEnabled() {
-				return enabled;
-			}
+	public void setContractTypeName(String contractTypeName) {
+		this.contractTypeName = contractTypeName;
+	}
 
-			public void setEnabled(String enabled) {
-				this.enabled = enabled;
-			}
+	public String getContractDocument() {
+		return contractDocument;
+	}
 
-			public String getLastChgBy() {
-				return lastChgBy;
-			}
+	public void setContractDocument(String contractDocument) {
+		this.contractDocument = contractDocument;
+	}
 
-			public void setLastChgBy(String lastChgBy) {
-				this.lastChgBy = lastChgBy;
-			}
+	public ProfileSignatoriesEntity getProfileSignatoriesEntity() {
+		return profileSignatoriesEntity;
+	}
 
-			public Date getLastChgDate() {
-				return lastChgDate;
-			}
+	public void setProfileSignatoriesEntity(ProfileSignatoriesEntity profileSignatoriesEntity) {
+		this.profileSignatoriesEntity = profileSignatoriesEntity;
+	}
 
-			public void setLastChgDate(Date lastChgDate) {
-				this.lastChgDate = lastChgDate;
-			}
+	public DocumentsEntity getDocumentsEntity() {
+		return documentsEntity;
+	}
 
-			public String getLastChgTime() {
-				return lastChgTime;
-			}
+	public void setDocumentsEntity(DocumentsEntity documentsEntity) {
+		this.documentsEntity = documentsEntity;
+	}
 
-			public void setLastChgTime(String lastChgTime) {
-				this.lastChgTime = lastChgTime;
-			}
+	public String getEnabled() {
+		return enabled;
+	}
 
-			@Column(name="status")
-		    private String enabled; 
-		    
-			@Column(name="contract_status")
-			private String contractStatus;
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
 
-			
-		    public String getContractStatus() {
-				return contractStatus;
-			}
+	public String getLastChgBy() {
+		return lastChgBy;
+	}
 
-			public void setContractStatus(String contractStatus) {
-				this.contractStatus = contractStatus;
-			}
+	public void setLastChgBy(String lastChgBy) {
+		this.lastChgBy = lastChgBy;
+	}
 
-			@Column(name="last_chg_by")
-		    private String lastChgBy;
-		    
-		    @Column(name="last_chg_date")
-		    private Date lastChgDate;
-		    
-		    @Column(name="last_chg_time")
-		    private String lastChgTime;
+	public Date getLastChgDate() {
+		return lastChgDate;
+	}
 
-			
+	public void setLastChgDate(Date lastChgDate) {
+		this.lastChgDate = lastChgDate;
+	}
 
+	public String getLastChgTime() {
+		return lastChgTime;
+	}
+
+	public void setLastChgTime(String lastChgTime) {
+		this.lastChgTime = lastChgTime;
+	}
+
+	@Column(name = "status")
+	private String enabled;
+
+	@Column(name = "contract_status")
+	private String contractStatus;
+
+	public String getContractStatus() {
+		return contractStatus;
+	}
+
+	public void setContractStatus(String contractStatus) {
+		this.contractStatus = contractStatus;
+	}
+
+	@Column(name = "last_chg_by")
+	private String lastChgBy;
+
+	@Column(name = "last_chg_date")
+	private Date lastChgDate;
+
+	@Column(name = "last_chg_time")
+	private String lastChgTime;
+
+	@Override
+	public String toString() {
+		return "ContractTypeEntity [id=" + id + ", contractTypeName=" + contractTypeName + ", contractDocument="
+				+ contractDocument + ", uploadedContractPath=" + uploadedContractPath + ", signedContractPath="
+				+ signedContractPath + ", uploadedContractDocument=" + uploadedContractDocument
+				+ ", profileSignatoriesEntity=" + profileSignatoriesEntity + ", documentsEntity=" + documentsEntity
+				+ ", enabled=" + enabled + ", contractStatus=" + contractStatus + ", lastChgBy=" + lastChgBy
+				+ ", lastChgDate=" + lastChgDate + ", lastChgTime=" + lastChgTime + "]";
+	}
+
+	
+	
 }

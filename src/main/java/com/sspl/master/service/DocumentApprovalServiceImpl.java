@@ -14,22 +14,27 @@ public class DocumentApprovalServiceImpl implements DocumentApprovalService {
 
 	@Autowired
 	private DocumentApprovalDAO documentApprovalDAO;
-
+	
 	public void setDocumentApprovalDAO(DocumentApprovalDAO documentApprovalDAO) {
 		this.documentApprovalDAO = documentApprovalDAO;
 	}
 
-	@Transactional
+	@Override
 	public Map<String, Object> followupDocumentList() {
 		return documentApprovalDAO.followupDocumentList();
 	}
+	
+	@Override
+	public Map<String, Object> followupDocumentList(String username) {
+		return documentApprovalDAO.followupDocumentList(username);
+	}
 
-	@Transactional
+	@Override
 	public Map<String, Object> editFollowupDocumentList(Map<String, Object> mapData) {
 		return documentApprovalDAO.editFollowupDocumentList(mapData);
 	}
 
-	@Transactional
+	@Override
 	public Map<String, Object> approveDocument(Map<String, Object> map) {
 		return documentApprovalDAO.approveDocument(map);
 	}

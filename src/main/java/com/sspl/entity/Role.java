@@ -52,7 +52,12 @@ public class Role  implements Serializable{
   
     public void setRole(String role) {  
         this.role = role;  
-    }  
+    }
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", role=" + role + ", enabled=" + enabled + "]";
+	}  
   
   /*  public Set<User> getUserRoles() {  
         return userRoles;  
@@ -60,6 +65,7 @@ public class Role  implements Serializable{
   
     public void setUserRoles(Set<User> userRoles) {  
         this.userRoles = userRoles;  
-    } */ 
+    } */
+    
       
 }  

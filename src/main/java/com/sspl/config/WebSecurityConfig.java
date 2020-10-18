@@ -32,7 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ADMIN','USER')");
 		http
 		.formLogin()
 		.loginPage("/login")
@@ -50,17 +49,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.csrf().disable();
 		
-	      http.authorizeRequests()
-	      .antMatchers("/fail2login/**").permitAll() 
-	      //.antMatchers("/welcome/**").permitAll()
+
+		http.authorizeRequests()
+		  .antMatchers("/fail2login/**").permitAll() 
 	      .antMatchers("/test/**").permitAll()
-	      .antMatchers("/login**").permitAll();
+	      .antMatchers("/login/**").permitAll()
+	      
+	      .antMatchers("/tatasky/**").access("hasRole('ADMIN','SUPER','SIGNER','UPLOADER')")
+	      
+	      //.antMatchers("/welcome/**").access("hasRole('SIGNER')")	      
+	      //.antMatchers("/modifyContractTypeList/**").access("hasRole('SIGNER')")
+	    ;
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println("password-->"+encoder.encode("admin"));
+		System.out.println("password-->"+encoder.encode("Pavan@2020"));
 		return encoder;
 	}
 

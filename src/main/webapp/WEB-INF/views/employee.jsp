@@ -18,23 +18,7 @@
 <body>
 	<form:form name="Employee" modelAttribute="employeeEntity">
 		<div class="middlecontent">
-			<div class="leftbox">
-				<div class="homeleftboxbg">
-					<div class="box1_con_blue">
-						<br /> <input class="press" type="button"
-							value="<spring:message code="label.new"/>"
-							onclick="submitForm('Employee', '/tatasky/viewEmployee');" /> <input
-							class="press" type="button" id="update"
-							onclick="submitForm('Employee', '/tatasky/editEmployeeActive/${employeeEntity.id}');"
-							value="<spring:message code="label.update"/>" /> 
-                        <input class="press" type="button"  id="update"onclick="submitForm('Employee', '/tatasky/addEmp1');"  value="<spring:message code="label.save"/>"/>
-
-
-					</div>
-				</div>
-			</div>
-
-
+			
 			<div class="middlebox">
 
 				<font style="font-size: 20px">Enter Employee Details</font>
@@ -144,8 +128,16 @@
 					</div>
 
 				</fieldset>
-
+				<br />
+				<div>
+					<div class="box1_con_blue">
+						<input class="press" type="button" value="<spring:message code="label.new"/>" onclick="submitForm('Employee', '/tatasky/viewEmployee');" /> 
+						<input class="press" type="button" id="update" onclick="submitForm('Employee', '/tatasky/editEmployeeActive/${employeeEntity.id}');" value="<spring:message code="label.update"/>" /> 
+	                       <input class="press" type="button" id="update"onclick="submitForm('Employee', '/tatasky/addEmp1');"  value="<spring:message code="label.save"/>"/>
+					</div>
+				</div>
 			</div>
+			
 		</div>
 	</form:form>
 

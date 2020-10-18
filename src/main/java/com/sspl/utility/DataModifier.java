@@ -34,4 +34,12 @@ public class DataModifier {
 		}
 
 		private String lastChgTime;
+
+		@Override
+		public String toString() {
+			return "DataModifier [lastChgBy=" + lastChgBy + ", lastChgDate=" + lastChgDate + ", lastChgTime="
+					+ lastChgTime + "]";
+		}
+		
+		
 }

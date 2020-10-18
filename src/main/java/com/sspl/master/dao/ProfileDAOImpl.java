@@ -146,12 +146,20 @@ public class ProfileDAOImpl implements ProfileDAO {
 
 		List<ProfileEntity> profileList=new ArrayList<ProfileEntity>();
 		List<ProfileEntity> editProfileList=new ArrayList<ProfileEntity>();
-		List<Role> roles=new ArrayList<Role>();
+		
 		editProfileList=this.sessionFactory.getCurrentSession().createQuery("from ProfileEntity as ue where ue.id="+id).list();
 		profileList=this.sessionFactory.getCurrentSession().createQuery("from ProfileEntity").list();
 		mapData.put("editProfileList", editProfileList);
 		mapData.put("profileList", profileList);
 
 		return mapData;
+	}
+
+	@Override
+	public ProfileEntity getProfile(Integer id) {
+		ProfileEntity profile = new ProfileEntity();
+		profile = (ProfileEntity) this.sessionFactory.getCurrentSession().createQuery("from ProfileEntity as ue where ue.id="+id).getSingleResult();
+		
+		return profile;
 	}
 }

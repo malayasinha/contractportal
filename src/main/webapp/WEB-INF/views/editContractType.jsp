@@ -24,21 +24,7 @@
 <body>
 	<form:form name="ContractType" modelAttribute="contractTypeEntity">
 		<div class="middlecontent">
-			<div class="leftbox">
-				<div class="homeleftboxbg">
-					<div class="box1_con_blue">
-						<br /> <input class="press" type="button"
-							value="<spring:message code="label.new"/>"
-							onclick="submitForm('ContractType', '/tatasky/viewContractType');" />
-						<input class="press" type="button" id="update"
-							onclick="submitForm('ContractType', '/tatasky/editContractTypeActive/${contractTypeEntity.id}');"
-							value="<spring:message code="label.update"/>" /> <input
-							class="press" type="button" id="update"
-							onclick="submitForm('ContractType', '/tatasky/modifyContractType/${contractTypeEntity.id}');"
-							value="<spring:message code="label.save"/>" />
-					</div>
-				</div>
-			</div>
+			
 			<div class="middlebox">
 
 				<font style="font-size: 20px">Enter Contract Details</font>
@@ -137,7 +123,19 @@
 						</table>
 					</div>
 				</fieldset>
-
+					<div>
+					<div class="box1_con_blue">
+						<br /> <input class="press" type="button"
+							value="<spring:message code="label.new"/>"
+							onclick="submitForm('ContractType', '/tatasky/viewContractType');" />
+						<input class="press" type="button" id="update"
+							onclick="submitForm('ContractType', '/tatasky/editContractTypeActive/${contractTypeEntity.id}');"
+							value="<spring:message code="label.update"/>" /> <input
+							class="press" type="button" id="update"
+							onclick="submitForm('ContractType', '/tatasky/modifyContractType/${contractTypeEntity.id}');"
+							value="<spring:message code="label.save"/>" />
+					</div>
+					</div>
 			</div>
 		</div>
 

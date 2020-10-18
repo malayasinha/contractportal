@@ -12,7 +12,9 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.sspl.entity.Department;
 import com.sspl.entity.DocumentsEntity;
 import com.sspl.entity.ProfileEntity;
 import com.sspl.entity.ProfileSignatoriesEntity;
@@ -28,74 +30,99 @@ public class ProfileWorkflowDOAImpl implements ProfileWorkflowDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public Map<String, Object> viewProfileWorkflow() 
-	{
+	public Map<String, Object> viewProfileWorkflow() {
 		loggerInfo.info("**[ viewProfile Profile List ]**");
-		Map<String, Object> mapData=new HashMap<String, Object>();
-		List<ProfileSignatoriesEntity> profileSignatoriesList=new ArrayList<ProfileSignatoriesEntity>();
-		List<SignatoryEntity> signatoriesList=new ArrayList<SignatoryEntity>();
-		List<ProfileEntity> profileList=new ArrayList<ProfileEntity>();
-		List<DocumentsEntity> documentsList=new ArrayList<DocumentsEntity>();
-		profileSignatoriesList=this.sessionFactory.getCurrentSession().createQuery("from ProfileSignatoriesEntity").list();
-		signatoriesList=this.sessionFactory.getCurrentSession().createQuery("from SignatoryEntity").list();
-		profileList=this.sessionFactory.getCurrentSession().createQuery("from ProfileEntity").list();
-		documentsList=this.sessionFactory.getCurrentSession().createQuery("from DocumentsEntity").list();
+		Map<String, Object> mapData = new HashMap<String, Object>();
+		List<ProfileSignatoriesEntity> profileSignatoriesList = new ArrayList<ProfileSignatoriesEntity>();
+		List<SignatoryEntity> signatoriesList = new ArrayList<SignatoryEntity>();
+		List<ProfileEntity> profileList = new ArrayList<ProfileEntity>();
+		List<DocumentsEntity> documentsList = new ArrayList<DocumentsEntity>();
+		profileSignatoriesList = this.sessionFactory.getCurrentSession().createQuery("from ProfileSignatoriesEntity")
+				.list();
+		signatoriesList = this.sessionFactory.getCurrentSession().createQuery("from SignatoryEntity").list();
+		profileList = this.sessionFactory.getCurrentSession().createQuery("from ProfileEntity").list();
+		documentsList = this.sessionFactory.getCurrentSession().createQuery("from DocumentsEntity").list();
 		mapData.put("profileSignatoriesList", profileSignatoriesList);
 		mapData.put("signatoriesList", signatoriesList);
 		mapData.put("profileList", profileList);
 		mapData.put("documentsList", documentsList);
-		
+
 		return mapData;
 	}
-
 	
+	@Override
 	public Map<String, Object> saveProfileWorkflow(Map<String, Object> map) {
 		System.out.println("************ In save ProfileWorkflow in ProfileWorkflowDAO imple *****************");
 		loggerInfo.info("**[ saveProfileWorkflow Save ProfileWorkflow ]**");
-		Map<String, Object> mapData=new HashMap<String, Object>();
-		List<ProfileSignatoriesEntity> uniquedata=new  ArrayList<ProfileSignatoriesEntity>();
-		ProfileSignatoriesEntity entity=new ProfileSignatoriesEntity();
-		Role role=new Role();
-		entity=(ProfileSignatoriesEntity)map.get("profileSignatoriesEntity");
-		uniquedata=(List<ProfileSignatoriesEntity>)this.sessionFactory.getCurrentSession().createCriteria(ProfileSignatoriesEntity.class).add(Restrictions.eq("profileEntity.id", entity.getProfileEntity().getId())).list(); 
-		System.out.println("size=="+uniquedata.size());
-		if(uniquedata.size()>0)
-		{
-			mapData.put("alreadyexisting",uniquedata);
-		}
-		else{
-		
-		
-		Session session = null;
-    	Transaction tx = null;
-    	try{
-    		session = this.sessionFactory.openSession();
-    		tx = session.beginTransaction();
-    		session.save(entity);
-    		tx.commit();
-    		loggerInfo.info("**[ ProfileWorkflow Saved ]**");
-    		
-    	}catch(RuntimeException e){
-    		try
-    		{
-    			loggerTech.info("**[ saveProfileWorkflow Couldn�t roll back transaction ]**");
-    			tx.rollback();
-    		}
-    		catch(RuntimeException rbe)
-    		{
-    			loggerTech.info("**[ saveProfileWorkflow Couldn�t roll back transaction ]**");
-    		}
-    		throw e;
-    	}finally
-    	{
-    		if(session!=null)
-    		{
-    			session.close();
-    		}
-    	}
+		Map<String, Object> mapData = new HashMap<String, Object>();
+		List<ProfileSignatoriesEntity> uniquedata = new ArrayList<ProfileSignatoriesEntity>();
+		ProfileSignatoriesEntity entity = new ProfileSignatoriesEntity();
+		Role role = new Role();
+		entity = (ProfileSignatoriesEntity) map.get("profileSignatoriesEntity");
+		uniquedata = (List<ProfileSignatoriesEntity>) this.sessionFactory.getCurrentSession()
+				.createCriteria(ProfileSignatoriesEntity.class)
+				.add(Restrictions.eq("profileEntity.id", entity.getProfileEntity().getId())).list();
+		System.out.println("size==" + uniquedata.size());
+		if (uniquedata.size() > 0) {
+			mapData.put("alreadyexisting", uniquedata);
+		} else {
+
+			Session session = null;
+			Transaction tx = null;
+			try {
+				session = this.sessionFactory.openSession();
+				tx = session.beginTransaction();
+				session.save(entity);
+				tx.commit();
+				loggerInfo.info("**[ ProfileWorkflow Saved ]**");
+
+			} catch (RuntimeException e) {
+				try {
+					loggerTech.info("**[ saveProfileWorkflow Couldn�t roll back transaction ]**");
+					tx.rollback();
+				} catch (RuntimeException rbe) {
+					loggerTech.info("**[ saveProfileWorkflow Couldn�t roll back transaction ]**");
+				}
+				throw e;
+			} finally {
+				if (session != null) {
+					session.close();
+				}
+			}
 		}
 		return mapData;
 	}
 
-	
+	@Override
+	public Map<String, Object> editProfileWorkflow(Integer id) {
+		Map<String, Object> mapData = new HashMap<String, Object>();
+		loggerInfo.info("**[ editprofileworkflow Edit Profileworkflow  ]**");
+		loggerTech.info("**[ editprofileworkflow Edit Profileworkflow " + id + "]**");
+
+		List<ProfileSignatoriesEntity> editProfileWorkflowList = new ArrayList<ProfileSignatoriesEntity>();
+		List<ProfileSignatoriesEntity> profileSignatoriesList = new ArrayList<ProfileSignatoriesEntity>();
+		List<SignatoryEntity> signatoriesList = new ArrayList<SignatoryEntity>();
+		List<ProfileEntity> profileList = new ArrayList<ProfileEntity>();
+		List<DocumentsEntity> documentsList = new ArrayList<DocumentsEntity>();
+		
+		profileSignatoriesList = this.sessionFactory.getCurrentSession().createQuery("from ProfileSignatoriesEntity")
+				.list();
+		signatoriesList = this.sessionFactory.getCurrentSession().createQuery("from SignatoryEntity").list();
+		profileList = this.sessionFactory.getCurrentSession().createQuery("from ProfileEntity").list();
+		documentsList = this.sessionFactory.getCurrentSession().createQuery("from DocumentsEntity").list();
+		
+		System.out.println(id);
+		editProfileWorkflowList = this.sessionFactory.getCurrentSession()
+				.createQuery("from ProfileSignatoriesEntity as ue where ue.id=" + id).list();
+		System.out.println(editProfileWorkflowList);
+		
+		mapData.put("editProfileSignatoriesList", editProfileWorkflowList);
+		mapData.put("profileSignatoriesList", profileSignatoriesList);
+		mapData.put("signatoriesList", signatoriesList);
+		mapData.put("profileList", profileList);
+		mapData.put("documentsList", documentsList);
+		return mapData;
+		
+	}
+
 }
