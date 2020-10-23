@@ -72,7 +72,7 @@ public class DocumentApprovalDAOImpl implements DocumentApprovalDAO {
 		
 		contractTypeList = this.sessionFactory.getCurrentSession()
 				.createQuery("from ContractTypeEntity where contractStatus='N'").list();
-		System.out.println(contractTypeList.get(0).getProfileSignatoriesEntity());
+		//System.out.println(contractTypeList.get(0).getProfileSignatoriesEntity());
 		Iterator<ContractTypeEntity> itr = contractTypeList.iterator();
 		while(itr.hasNext()) {
 			ProfileSignatoriesEntity profileSignatory = itr.next().getProfileSignatoriesEntity();

@@ -62,7 +62,7 @@ public class DocumentDAOImpl implements DocumentDAO {
 		entity = (DocumentsEntity) map.get("documentsEntity");
 
 		uniquedata = (List<DocumentsEntity>) this.sessionFactory.getCurrentSession()
-				.createCriteria(DocumentsEntity.class).add(Restrictions.eq("DocumentsName", entity.getDocumentName()))
+				.createCriteria(DocumentsEntity.class).add(Restrictions.eq("documentName", entity.getDocumentName()))
 				.list();
 		System.out.println("size==" + uniquedata.size());
 		if (uniquedata.size() > 0) {

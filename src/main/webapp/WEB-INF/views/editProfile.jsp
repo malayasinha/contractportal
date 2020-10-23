@@ -53,7 +53,7 @@
 				<c:forEach items="${profileList}" var="profileEntity">
 						<tr>
 						<td><a href="/tatasky/editProfile/${profileEntity.id}"> ${profileEntity.profileName} </a></td>
-						<td>${profileEntity.profileName}</td>
+						<%-- <td>${profileEntity.profileName}</td> --%>
 						<td>${profileEntity.profileDescription}</td>
 <%-- 						<td>${profileEntity.inputFolder}</td>
 						<td>${profileEntity.outputFolder}</td>

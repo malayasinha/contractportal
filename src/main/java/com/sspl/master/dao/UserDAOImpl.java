@@ -87,7 +87,7 @@ public class UserDAOImpl implements UserDAO {
 		List<UsersEntity> uniquedata = new ArrayList<UsersEntity>();
 		UsersEntity entity = new UsersEntity();
 		entity = (UsersEntity) map.get("usersEntity");
-		String encoded = new BCryptPasswordEncoder().encode(entity.getUsername()+"@2020");
+		String encoded = new BCryptPasswordEncoder().encode(entity.getfName()+"@2020");
 		entity.setPassword(encoded);
 		System.out.println("User Name [" + encoded + "]");
 

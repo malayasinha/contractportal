@@ -18,6 +18,7 @@ import com.sspl.entity.ContractReviewEntity;
 import com.sspl.entity.ContractTypeEntity;
 import com.sspl.entity.Department;
 import com.sspl.entity.DocumentsEntity;
+import com.sspl.entity.ProfileEntity;
 import com.sspl.entity.ProfileSignatoriesEntity;
 
 @Repository
@@ -60,6 +61,7 @@ public class ContractMngmtDAOImpl implements ContractMngmtDAO {
 		List<ContractTypeEntity> contractTypeList=new ArrayList<ContractTypeEntity>();
 		List<DocumentsEntity> documentList=new ArrayList<DocumentsEntity>();
 		List<ProfileSignatoriesEntity> profileSignatoriesEntityList=new ArrayList<ProfileSignatoriesEntity>();
+		List<ProfileEntity> profileEntityList=new ArrayList<ProfileEntity>();
 		List<Department> departmentList=new ArrayList<Department>();
 		
 		
@@ -67,6 +69,7 @@ public class ContractMngmtDAOImpl implements ContractMngmtDAO {
 		contractTypeList=this.sessionFactory.getCurrentSession().createQuery("from ContractTypeEntity").list();
 		documentList=this.sessionFactory.getCurrentSession().createQuery("from DocumentsEntity where status='1'").list();
 		profileSignatoriesEntityList=this.sessionFactory.getCurrentSession().createQuery("from ProfileSignatoriesEntity where status='1'").list();
+		profileEntityList=this.sessionFactory.getCurrentSession().createQuery("from ProfileEntity where status='1'").list();
 		departmentList = this.sessionFactory.getCurrentSession().createQuery("from Department where status='1'").list();
 		
 		mapData.put("editContractTypeList", editContractTypeList);

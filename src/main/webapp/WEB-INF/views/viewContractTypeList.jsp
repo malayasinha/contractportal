@@ -41,7 +41,7 @@
 								<tr>
 									<th>Contract Name</th>
 									<th>Uploaded Document</th>
-									<th>Document Type</th>
+									<!-- <th>Document Type</th> -->
 									<th>Profile</th>
 									<th>Document Status</th>
 									<th>View</th>
@@ -53,39 +53,34 @@
 										<tr>
 											<td>${contractTypeEntity.contractTypeName}</td>
 											<td>${contractTypeEntity.contractDocument}</td>
-											<td>${contractTypeEntity.documentsEntity.documentName}</td>
+											<%-- <td>${contractTypeEntity.documentsEntity.documentName}</td> --%>
 											<td>${contractTypeEntity.profileSignatoriesEntity.profileSigName}</td>
-											<td>
-											<c:choose>
+											<td><c:choose>
 
-												<c:when test="${contractTypeEntity.contractStatus=='N'}">
+													<c:when test="${contractTypeEntity.contractStatus=='N'}">
             									Pending
          										</c:when>
-												<c:otherwise>
+													<c:otherwise>
 									            Approved
          									</c:otherwise>
-											</c:choose>
-											</td>
+												</c:choose></td>
 
 											<td><a
-												href="/tatasky/downLoadDocument/${contractTypeEntity.id}">
+												href="/tatasky/downLoad/u/${contractTypeEntity.id}">
 													${contractTypeEntity.contractDocument} </a></td>
-										<td>
-																				<c:choose>
+											<td><c:choose>
+													<c:when
+														test="${contractTypeEntity.signedContractPath!='#'}">
+														<a
+															href="/tatasky/downLoadSignDocument/${contractTypeEntity.id}">
+															${contractTypeEntity.contractDocument} </a>
 
-												<c:when test="${contractTypeEntity.signedContractPath!='#'}">
-            									<a href="/tatasky/downLoadSignDocument/${contractTypeEntity.id}">
-													${contractTypeEntity.contractDocument} </a>
-										
-         										</c:when>
-												<c:otherwise>
+													</c:when>
+													<c:otherwise>
 									            ${contractTypeEntity.contractDocument}
          									</c:otherwise>
-											</c:choose>
-											
-													
-													</td>
-										
+												</c:choose></td>
+
 										</tr>
 									</c:forEach>
 								</c:if>

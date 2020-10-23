@@ -146,7 +146,7 @@ public class ContractMngmtController {
 		
 		ProfileEntity profileEntity = new ProfileEntity();
 		if(profileId != null){
-			 profileEntity = profileService.getProfile(profileId);
+			profileEntity = profileService.getProfile(profileId);
 			System.out.println(profileEntity);
 			
 			ProfileSignatoriesEntity profileSignatoriesEntity=new ProfileSignatoriesEntity();
@@ -157,7 +157,7 @@ public class ContractMngmtController {
 		contractTypeEntity.setEnabled(fileUploadDocForm.getEnabled());
 		contractTypeEntity.setContractStatus("N");
 		contractTypeEntity.setUploadedContractPath(profileEntity.getInputFolder());
-		contractTypeEntity.setSignedContractPath(profileEntity.getOutputFolder());
+		contractTypeEntity.setSignedContractPath("#");
 		
 		System.out.println(contractTypeEntity);
 		

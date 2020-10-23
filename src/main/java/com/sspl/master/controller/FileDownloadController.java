@@ -8,11 +8,15 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,17 +29,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sspl.entity.ContractTypeEntity;
+import com.sspl.master.service.ContractMngmtService;
+
 @Controller
 public class FileDownloadController {
-//	//{fileName:.+}
-	@RequestMapping("/download/{type}/{filename}")
+
+	@Autowired
+	ContractMngmtService contractService;
+	
+	//{fileName:.+}
+	@RequestMapping("/download/{type}/{profileId}")
 	public void downloadPDFResource(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("type") String type,
-			@PathVariable("filename") String fileName) {
+			@PathVariable("filename") Integer profileId) {
+	
+		Map<String,Object> map = contractService.editContractType(profileId);
+		List<ContractTypeEntity> editContractTypeList=(List<ContractTypeEntity>) map.get("editContractTypeList");
+		String fileName ="", folder = "";
+		if(editContractTypeList.size()>0) {
+			fileName = editContractTypeList.get(0).getUploadedContractDocument();
+			
+			if(type.equals("u")) {
+				folder = editContractTypeList.get(0).getUploadedContractPath();
+			} else {
+				folder = editContractTypeList.get(0).getSignedContractPath();
+			}
+		}
+		
 		
 		System.out.printf("filename = %s, type=%s",fileName,type);
 		
-		String folder = "/home/malaya/input/";
 		
 		
 		//String fileExt = fileName.substring(fileName.lastIndexOf(".")).toUpperCase();
